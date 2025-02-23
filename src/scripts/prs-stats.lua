@@ -16,19 +16,19 @@ local function vitalsHeader()
     }, header)
     name:setFontSize(12)
     name:setColor(0, 0, 0, 0)
-    name:echo(gmcp.Char.player.name, "#f9f1a5", "l")
+    name:echo(PRSState.Char.player.name, "#f9f1a5", "l")
     local class = Geyser.Label:new({
         name = "class"
     }, header)
     class:setFontSize(12)
     class:setColor(0, 0, 0, 0)
-    class:echo(gmcp.Char.player.class, "#b4009e", "c")
+    class:echo(PRSState.Char.player.class, "#b4009e", "c")
     if PRSstats.events.classChange_id then
         killAnonymousEventHandler(PRSstats.events.classChange_id)
     end
-    PRSstats.events.classChange_id = registerAnonymousEventHandler("gmcp.Char.player.class", function()
-        if gmcp.Char.player.class then
-            class:echo(gmcp.Char.player.class, "#b4009e", "c")
+    PRSstats.events.classChange_id = registerAnonymousEventHandler("PRSState.Char.player.class", function()
+        if PRSState.Char.player.class then
+            class:echo(PRSState.Char.player.class, "#b4009e", "c")
         end
     end)
     local level = Geyser.Label:new({
@@ -36,13 +36,13 @@ local function vitalsHeader()
     }, header)
     level:setFontSize(12)
     level:setColor(0, 0, 0, 0)
-    level:echo("Level " .. gmcp.Char.player.level, "#ababab", "r")
+    level:echo("Level " .. PRSState.Char.player.level, "#ababab", "r")
     if PRSstats.events.levelChange_id then
         killAnonymousEventHandler(PRSstats.events.levelChange_id)
     end
-    PRSstats.events.levelChange_id = registerAnonymousEventHandler("gmcp.Char.player.level", function()
-        if gmcp.Char.player.level then
-            level:echo("Level " .. gmcp.Char.player.level, "#ababab", "r")
+    PRSstats.events.levelChange_id = registerAnonymousEventHandler("PRSState.Char.player.level", function()
+        if PRSState.Char.player.level then
+            level:echo("Level " .. PRSState.Char.player.level, "#ababab", "r")
         end
     end)
 end
@@ -69,13 +69,13 @@ local function statsTab()
     }, row1)
     strength:setColor(0, 0, 0, 0)
     strength:setFontSize(10)
-    strength:echo(gmcp.Char.player.strength, "#e74856", "r")
-    if PRSstats.events.strengthChange_id then
-        killAnonymousEventHandler(PRSstats.events.strengthChange_id)
+    strength:echo(PRSState.Char.player._strength, "#e74856", "r")
+    if PRSstats.events._strengthChange_id then
+        killAnonymousEventHandler(PRSstats.events._strengthChange_id)
     end
-    PRSstats.events.strengthChange_id = registerAnonymousEventHandler("gmcp.Char.player.strength", function()
-        if gmcp.Char.player.strength then
-            strength:echo(gmcp.Char.player.strength, "#e74856", "r")
+    PRSstats.events._strengthChange_id = registerAnonymousEventHandler("PRSState.Char.player._strength", function()
+        if PRSState.Char.player._strength then
+            strength:echo(PRSState.Char.player._strength, "#e74856", "r")
         end
     end)
     local strengthDiv = Geyser.Label:new({
@@ -89,13 +89,13 @@ local function statsTab()
     }, row1)
     _strength:setColor(0, 0, 0, 0)
     _strength:setFontSize(10)
-    _strength:echo(gmcp.Char.player._strength, "#c50f1f", "l")
-    if PRSstats.events._strengthChange_id then
-        killAnonymousEventHandler(PRSstats.events._strengthChange_id)
+    _strength:echo(PRSState.Char.player.strength - PRSState.Char.player._strength, "#c50f1f", "l")
+    if PRSstats.events.strengthChange_id then
+        killAnonymousEventHandler(PRSstats.events.strengthChange_id)
     end
-    PRSstats.events._strengthChange_id = registerAnonymousEventHandler("gmcp.Char.player._strength", function()
-        if gmcp.Char.player._strength then
-            _strength:echo(gmcp.Char.player._strength, "#c50f1f", "l")
+    PRSstats.events.strengthChange_id = registerAnonymousEventHandler("PRSState.Char.player.strength", function()
+        if PRSState.Char.player._strength and PRSState.Char.player.strength then
+            _strength:echo(PRSState.Char.player.strength - PRSState.Char.player._strength, "#c50f1f", "l")
         end
     end)
     -- Magic
@@ -104,13 +104,13 @@ local function statsTab()
     }, row1)
     magic:setColor(0, 0, 0, 0)
     magic:setFontSize(10)
-    magic:echo(gmcp.Char.player.magic, "#61d6d6", "r")
-    if PRSstats.events.magicChange_id then
-        killAnonymousEventHandler(PRSstats.events.magicChange_id)
+    magic:echo(PRSState.Char.player._magic, "#61d6d6", "r")
+    if PRSstats.events._magicChange_id then
+        killAnonymousEventHandler(PRSstats.events._magicChange_id)
     end
-    PRSstats.events.magicChange_id = registerAnonymousEventHandler("gmcp.Char.player.magic", function()
-        if gmcp.Char.player.magic then
-            magic:echo(gmcp.Char.player.magic, "#61d6d6", "r")
+    PRSstats.events._magicChange_id = registerAnonymousEventHandler("PRSState.Char.player._magic", function()
+        if PRSState.Char.player._magic then
+            magic:echo(PRSState.Char.player._magic, "#61d6d6", "r")
         end
     end)
     local magicDiv = Geyser.Label:new({
@@ -124,13 +124,13 @@ local function statsTab()
     }, row1)
     _magic:setColor(0, 0, 0, 0)
     _magic:setFontSize(10)
-    _magic:echo(gmcp.Char.player._magic, "#3a96dd", "l")
-    if PRSstats.events._magicChange_id then
-        killAnonymousEventHandler(PRSstats.events._magicChange_id)
+    _magic:echo(PRSState.Char.player.magic - PRSState.Char.player._magic, "#3a96dd", "l")
+    if PRSstats.events.magicChange_id then
+        killAnonymousEventHandler(PRSstats.events.magicChange_id)
     end
-    PRSstats.events._magicChange_id = registerAnonymousEventHandler("gmcp.Char.player._magic", function()
-        if gmcp.Char.player._magic then
-            _magic:echo(gmcp.Char.player._magic, "#3a96dd", "l")
+    PRSstats.events.magicChange_id = registerAnonymousEventHandler("PRSState.Char.player.magic", function()
+        if PRSState.Char.player._magic and PRSState.Char.player.magic then
+            _magic:echo(PRSState.Char.player.magic - PRSState.Char.player._magic, "#3a96dd", "l")
         end
     end)
     local row2 = Geyser.HBox:new({
@@ -158,14 +158,14 @@ local function statsTab()
     }, row3)
     maxHealth:setColor(0, 0, 0, 0)
     maxHealth:setFontSize(8)
-    maxHealth:echo(gmcp.Char.player.strengthHpBonus .. " ", "#16c60c", "r")
+    maxHealth:echo(PRSState.Char.player.strengthHpBonus .. " ", "#16c60c", "r")
     if PRSstats.events.strengthHpBonusChange_id then
         killAnonymousEventHandler(PRSstats.events.strengthHpBonusChange_id)
     end
-    PRSstats.events.strengthHpBonusChange_id = registerAnonymousEventHandler("gmcp.Char.player.strengthHpBonus",
+    PRSstats.events.strengthHpBonusChange_id = registerAnonymousEventHandler("PRSState.Char.player.strengthHpBonus",
         function()
-            if gmcp.Char.player.strengthHpBonus then
-                maxHealth:echo(gmcp.Char.player.strengthHpBonus .. " ", "#16c60c", "r")
+            if PRSState.Char.player.strengthHpBonus then
+                maxHealth:echo(PRSState.Char.player.strengthHpBonus .. " ", "#16c60c", "r")
             end
         end)
     local maxHealthTitle = Geyser.Label:new({
@@ -179,14 +179,14 @@ local function statsTab()
     }, row3)
     maxEnergy:setColor(0, 0, 0, 0)
     maxEnergy:setFontSize(8)
-    maxEnergy:echo(gmcp.Char.player.magicEnergyBonus .. " ", "#f2f2f2", "r")
+    maxEnergy:echo(PRSState.Char.player.magicEnergyBonus .. " ", "#f2f2f2", "r")
     if PRSstats.events.magicEnergyBonusChange_id then
         killAnonymousEventHandler(PRSstats.events.magicEnergyBonusChange_id)
     end
-    PRSstats.events.magicEnergyBonusChange_id = registerAnonymousEventHandler("gmcp.Char.player.magicEnergyBonus",
+    PRSstats.events.magicEnergyBonusChange_id = registerAnonymousEventHandler("PRSState.Char.player.magicEnergyBonus",
         function()
-            if gmcp.Char.player.magicEnergyBonus then
-                maxEnergy:echo(gmcp.Char.player.magicEnergyBonus .. " ", "#f2f2f2", "r")
+            if PRSState.Char.player.magicEnergyBonus then
+                maxEnergy:echo(PRSState.Char.player.magicEnergyBonus .. " ", "#f2f2f2", "r")
             end
         end)
     local maxEnergyTitle = Geyser.Label:new({
@@ -204,14 +204,14 @@ local function statsTab()
     }, row4)
     maxStamina:setColor(0, 0, 0, 0)
     maxStamina:setFontSize(8)
-    maxStamina:echo(gmcp.Char.player.strengthStaminaBonus .. " ", "#f9f1a5", "r")
+    maxStamina:echo(PRSState.Char.player.strengthStaminaBonus .. " ", "#f9f1a5", "r")
     if PRSstats.events.strengthStaminaBonusChange_id then
         killAnonymousEventHandler(PRSstats.events.strengthStaminaBonusChange_id)
     end
     PRSstats.events.strengthStaminaBonusChange_id = registerAnonymousEventHandler(
-        "gmcp.Char.player.strengthStaminaBonus", function()
-            if gmcp.Char.player.strengthStaminaBonus then
-                maxStamina:echo(gmcp.Char.player.strengthStaminaBonus .. " ", "#f9f1a5", "r")
+        "PRSState.Char.player.strengthStaminaBonus", function()
+            if PRSState.Char.player.strengthStaminaBonus then
+                maxStamina:echo(PRSState.Char.player.strengthStaminaBonus .. " ", "#f9f1a5", "r")
             end
         end)
     local maxStaminaTitle = Geyser.Label:new({
@@ -225,14 +225,14 @@ local function statsTab()
     }, row4)
     spellCooldown:setColor(0, 0, 0, 0)
     spellCooldown:setFontSize(8)
-    spellCooldown:echo(gmcp.Char.player.magicSpellCooldownBonus .. " ", "#881798", "r")
+    spellCooldown:echo(PRSState.Char.player.magicSpellCooldownBonus .. " ", "#881798", "r")
     if PRSstats.events.magicSpellCooldownBonusChange_id then
         killAnonymousEventHandler(PRSstats.events.magicSpellCooldownBonusChange_id)
     end
     PRSstats.events.magicSpellCooldownBonusChange_id = registerAnonymousEventHandler(
-        "gmcp.Char.player.magicSpellCooldownBonus", function()
-            if gmcp.Char.player.magicSpellCooldownBonus then
-                spellCooldown:echo(gmcp.Char.player.magicSpellCooldownBonus .. " ", "#881798", "r")
+        "PRSState.Char.player.magicSpellCooldownBonus", function()
+            if PRSState.Char.player.magicSpellCooldownBonus then
+                spellCooldown:echo(PRSState.Char.player.magicSpellCooldownBonus .. " ", "#881798", "r")
             end
         end)
     local spellCooldownTitle = Geyser.Label:new({
@@ -250,14 +250,14 @@ local function statsTab()
     }, row5)
     strengthDamage:setColor(0, 0, 0, 0)
     strengthDamage:setFontSize(8)
-    strengthDamage:echo(gmcp.Char.player.strengthDamageBonus .. " ", "#e74856", "r")
+    strengthDamage:echo(PRSState.Char.player.strengthDamageBonus .. " ", "#e74856", "r")
     if PRSstats.events.strengthDamageBonusChange_id then
         killAnonymousEventHandler(PRSstats.events.strengthDamageBonusChange_id)
     end
-    PRSstats.events.strengthDamageBonusChange_id = registerAnonymousEventHandler("gmcp.Char.player.strengthDamageBonus",
+    PRSstats.events.strengthDamageBonusChange_id = registerAnonymousEventHandler("PRSState.Char.player.strengthDamageBonus",
         function()
-            if gmcp.Char.player.strengthDamageBonus then
-                strengthDamage:echo(gmcp.Char.player.strengthDamageBonus .. " ", "#e74856", "r")
+            if PRSState.Char.player.strengthDamageBonus then
+                strengthDamage:echo(PRSState.Char.player.strengthDamageBonus .. " ", "#e74856", "r")
             end
         end)
     local strengthDamageTitle = Geyser.Label:new({
@@ -271,14 +271,14 @@ local function statsTab()
     }, row5)
     magicDamage:setColor(0, 0, 0, 0)
     magicDamage:setFontSize(8)
-    magicDamage:echo(gmcp.Char.player.magicDamageBonus .. " ", "#b4009e", "r")
+    magicDamage:echo(PRSState.Char.player.magicDamageBonus .. " ", "#b4009e", "r")
     if PRSstats.events.magicDamageBonusChange_id then
         killAnonymousEventHandler(PRSstats.events.magicDamageBonusChange_id)
     end
-    PRSstats.events.magicDamageBonusChange_id = registerAnonymousEventHandler("gmcp.Char.player.magicDamageBonus",
+    PRSstats.events.magicDamageBonusChange_id = registerAnonymousEventHandler("PRSState.Char.player.magicDamageBonus",
         function()
-            if gmcp.Char.player.magicDamageBonus then
-                magicDamage:echo(gmcp.Char.player.magicDamageBonus .. " ", "#b4009e", "r")
+            if PRSState.Char.player.magicDamageBonus then
+                magicDamage:echo(PRSState.Char.player.magicDamageBonus .. " ", "#b4009e", "r")
             end
         end)
     local magicDamageTitle = Geyser.Label:new({
@@ -296,14 +296,14 @@ local function statsTab()
     }, row6)
     resistPhysical:setColor(0, 0, 0, 0)
     resistPhysical:setFontSize(8)
-    resistPhysical:echo(gmcp.Char.player.strengthResistBonus .. " ", "#c50f1f", "r")
+    resistPhysical:echo(PRSState.Char.player.strengthResistBonus .. " ", "#c50f1f", "r")
     if PRSstats.events.strengthResistBonusChange_id then
         killAnonymousEventHandler(PRSstats.events.strengthResistBonusChange_id)
     end
-    PRSstats.events.strengthResistBonusChange_id = registerAnonymousEventHandler("gmcp.Char.player.strengthResistBonus",
+    PRSstats.events.strengthResistBonusChange_id = registerAnonymousEventHandler("PRSState.Char.player.strengthResistBonus",
         function()
-            if gmcp.Char.player.strengthResistBonus then
-                resistPhysical:echo(gmcp.Char.player.strengthResistBonus .. " ", "#c50f1f", "r")
+            if PRSState.Char.player.strengthResistBonus then
+                resistPhysical:echo(PRSState.Char.player.strengthResistBonus .. " ", "#c50f1f", "r")
             end
         end)
     local resistPhysicalTitle = Geyser.Label:new({
@@ -317,14 +317,14 @@ local function statsTab()
     }, row6)
     resistMagic:setColor(0, 0, 0, 0)
     resistMagic:setFontSize(8)
-    resistMagic:echo(gmcp.Char.player.magicResistBonus .. " ", "#61d6d6", "r")
+    resistMagic:echo(PRSState.Char.player.magicResistBonus .. " ", "#61d6d6", "r")
     if PRSstats.events.magicResistBonusChange_id then
         killAnonymousEventHandler(PRSstats.events.magicResistBonusChange_id)
     end
-    PRSstats.events.magicResistBonusChange_id = registerAnonymousEventHandler("gmcp.Char.player.magicResistBonus",
+    PRSstats.events.magicResistBonusChange_id = registerAnonymousEventHandler("PRSState.Char.player.magicResistBonus",
         function()
-            if gmcp.Char.player.magicResistBonus then
-                resistMagic:echo(gmcp.Char.player.magicResistBonus .. " ", "#61d6d6", "r")
+            if PRSState.Char.player.magicResistBonus then
+                resistMagic:echo(PRSState.Char.player.magicResistBonus .. " ", "#61d6d6", "r")
             end
         end)
     local resistMagicTitle = Geyser.Label:new({
@@ -347,13 +347,13 @@ local function statsTab()
     }, row8)
     agility:setColor(0, 0, 0, 0)
     agility:setFontSize(10)
-    agility:echo(gmcp.Char.player.agility, "#f9f1a5", "r")
-    if PRSstats.events.agilityChange_id then
-        killAnonymousEventHandler(PRSstats.events.agilityChange_id)
+    agility:echo(PRSState.Char.player._agility, "#f9f1a5", "r")
+    if PRSstats.events._agilityChange_id then
+        killAnonymousEventHandler(PRSstats.events._agilityChange_id)
     end
-    PRSstats.events.agilityChange_id = registerAnonymousEventHandler("gmcp.Char.player.agility", function()
-        if gmcp.Char.player.agility then
-            agility:echo(gmcp.Char.player.agility, "#f9f1a5", "r")
+    PRSstats.events._agilityChange_id = registerAnonymousEventHandler("PRSState.Char.player._agility", function()
+        if PRSState.Char.player._agility then
+            agility:echo(PRSState.Char.player._agility, "#f9f1a5", "r")
         end
     end)
     local agilityDiv = Geyser.Label:new({
@@ -367,13 +367,13 @@ local function statsTab()
     }, row8)
     _agility:setColor(0, 0, 0, 0)
     _agility:setFontSize(10)
-    _agility:echo(gmcp.Char.player._agility, "#c19c00", "l")
-    if PRSstats.events._agilityChange_id then
-        killAnonymousEventHandler(PRSstats.events._agilityChange_id)
+    _agility:echo(PRSState.Char.player.agility - PRSState.Char.player._agility, "#c19c00", "l")
+    if PRSstats.events.agilityChange_id then
+        killAnonymousEventHandler(PRSstats.events.agilityChange_id)
     end
-    PRSstats.events._agilityChange_id = registerAnonymousEventHandler("gmcp.Char.player._agility", function()
-        if gmcp.Char.player._agility then
-            _agility:echo(gmcp.Char.player._agility, "#c19c00", "l")
+    PRSstats.events.agilityChange_id = registerAnonymousEventHandler("PRSState.Char.player.agility", function()
+        if PRSState.Char.player.agility and PRSState.Char.player._agility then
+            _agility:echo(PRSState.Char.player.agility - PRSState.Char.player._agility, "#c19c00", "l")
         end
     end)
     -- Spirit
@@ -382,13 +382,13 @@ local function statsTab()
     }, row8)
     spirit:setColor(0, 0, 0, 0)
     spirit:setFontSize(10)
-    spirit:echo(gmcp.Char.player.spirit, "#16c60c", "r")
-    if PRSstats.events.spiritChange_id then
-        killAnonymousEventHandler(PRSstats.events.spiritChange_id)
+    spirit:echo(PRSState.Char.player._spirit, "#16c60c", "r")
+    if PRSstats.events._spiritChange_id then
+        killAnonymousEventHandler(PRSstats.events._spiritChange_id)
     end
-    PRSstats.events.spiritChange_id = registerAnonymousEventHandler("gmcp.Char.player.spirit", function()
-        if gmcp.Char.player.spirit then
-            spirit:echo(gmcp.Char.player.spirit, "#16c60c", "r")
+    PRSstats.events._spiritChange_id = registerAnonymousEventHandler("PRSState.Char.player._spirit", function()
+        if PRSState.Char.player._spirit then
+            spirit:echo(PRSState.Char.player._spirit, "#16c60c", "r")
         end
     end)
     local spiritDiv = Geyser.Label:new({
@@ -402,13 +402,13 @@ local function statsTab()
     }, row8)
     _spirit:setColor(0, 0, 0, 0)
     _spirit:setFontSize(10)
-    _spirit:echo(gmcp.Char.player._spirit, "#13a10e", "l")
-    if PRSstats.events._spiritChange_id then
-        killAnonymousEventHandler(PRSstats.events._spiritChange_id)
+    _spirit:echo(PRSState.Char.player.spirit - PRSState.Char.player._spirit, "#13a10e", "l")
+    if PRSstats.events.spiritChange_id then
+        killAnonymousEventHandler(PRSstats.events.spiritChange_id)
     end
-    PRSstats.events._spiritChange_id = registerAnonymousEventHandler("gmcp.Char.player._spirit", function()
-        if gmcp.Char.player._spirit then
-            _spirit:echo(gmcp.Char.player._spirit, "#13a10e", "l")
+    PRSstats.events.spiritChange_id = registerAnonymousEventHandler("PRSState.Char.player.spirit", function()
+        if PRSState.Char.player._spirit and PRSState.Char.player.spirit then
+            _spirit:echo(PRSState.Char.player.spirit - PRSState.Char.player._spirit, "#13a10e", "l")
         end
     end)
     local row9 = Geyser.HBox:new({
@@ -436,14 +436,14 @@ local function statsTab()
     }, row10)
     agilitySpeed:setColor(0, 0, 0, 0)
     agilitySpeed:setFontSize(8)
-    agilitySpeed:echo(gmcp.Char.player.agilitySpeedBonus .. " ", "#f9f1a5", "r")
+    agilitySpeed:echo(PRSState.Char.player.agilitySpeedBonus .. " ", "#f9f1a5", "r")
     if PRSstats.events.agilitySpeedBonusChange_id then
         killAnonymousEventHandler(PRSstats.events.agilitySpeedBonusChange_id)
     end
-    PRSstats.events.agilitySpeedBonusChange_id = registerAnonymousEventHandler("gmcp.Char.player.agilitySpeedBonus",
+    PRSstats.events.agilitySpeedBonusChange_id = registerAnonymousEventHandler("PRSState.Char.player.agilitySpeedBonus",
         function()
-            if gmcp.Char.player.agilitySpeedBonus then
-                agilitySpeed:echo(gmcp.Char.player.agilitySpeedBonus .. " ", "#f9f1a5", "r")
+            if PRSState.Char.player.agilitySpeedBonus then
+                agilitySpeed:echo(PRSState.Char.player.agilitySpeedBonus .. " ", "#f9f1a5", "r")
             end
         end)
     local agilitySpeedTitle = Geyser.Label:new({
@@ -457,14 +457,14 @@ local function statsTab()
     }, row10)
     spiritEnergy:setColor(0, 0, 0, 0)
     spiritEnergy:setFontSize(8)
-    spiritEnergy:echo(gmcp.Char.player.spiritEnergyBonus .. " ", "#f2f2f2", "r")
+    spiritEnergy:echo(PRSState.Char.player.spiritEnergyBonus .. " ", "#f2f2f2", "r")
     if PRSstats.events.spiritEnergyBonusChange_id then
         killAnonymousEventHandler(PRSstats.events.spiritEnergyBonusChange_id)
     end
-    PRSstats.events.spiritEnergyBonusChange_id = registerAnonymousEventHandler("gmcp.Char.player.spiritEnergyBonus",
+    PRSstats.events.spiritEnergyBonusChange_id = registerAnonymousEventHandler("PRSState.Char.player.spiritEnergyBonus",
         function()
-            if gmcp.Char.player.spiritEnergyBonus then
-                spiritEnergy:echo(gmcp.Char.player.spiritEnergyBonus .. " ", "#f2f2f2", "r")
+            if PRSState.Char.player.spiritEnergyBonus then
+                spiritEnergy:echo(PRSState.Char.player.spiritEnergyBonus .. " ", "#f2f2f2", "r")
             end
         end)
     local spiritEnergyTitle = Geyser.Label:new({
@@ -482,14 +482,14 @@ local function statsTab()
     }, row11)
     skillCooldown:setColor(0, 0, 0, 0)
     skillCooldown:setFontSize(8)
-    skillCooldown:echo(string.format("%0.2f", gmcp.Char.player.agilitySkillCooldownBonus) .. " ", "#c19c00", "r")
+    skillCooldown:echo(string.format("%0.2f", PRSState.Char.player.agilitySkillCooldownBonus) .. " ", "#c19c00", "r")
     if PRSstats.events.agilitySkillCooldownBonusChange_id then
         killAnonymousEventHandler(PRSstats.events.agilitySkillCooldownBonusChange_id)
     end
     PRSstats.events.agilitySkillCooldownBonusChange_id = registerAnonymousEventHandler(
-        "gmcp.Char.player.agilityskillCooldownBonus", function()
-            if gmcp.Char.player.agilitySkillCooldownBonus then
-                skillCooldown:echo(string.format("%0.2f", gmcp.Char.player.agilityCooldownBonus) .. " ", "#c19c00", "r")
+        "PRSState.Char.player.agilityskillCooldownBonus", function()
+            if PRSState.Char.player.agilitySkillCooldownBonus then
+                skillCooldown:echo(string.format("%0.2f", PRSState.Char.player.agilityCooldownBonus) .. " ", "#c19c00", "r")
             end
         end)
     local skillCooldownTitle = Geyser.Label:new({
@@ -503,14 +503,14 @@ local function statsTab()
     }, row11)
     spiritFocus:setColor(0, 0, 0, 0)
     spiritFocus:setFontSize(8)
-    spiritFocus:echo(gmcp.Char.player.spiritFocusBonus .. " ", "#3b78ff", "r")
+    spiritFocus:echo(PRSState.Char.player.spiritFocusBonus .. " ", "#3b78ff", "r")
     if PRSstats.events.spiritFocusBonusChange_id then
         killAnonymousEventHandler(PRSstats.events.spiritFocusBonusChange_id)
     end
-    PRSstats.events.spiritFocusBonusChange_id = registerAnonymousEventHandler("gmcp.Char.player.spiritFocusBonus",
+    PRSstats.events.spiritFocusBonusChange_id = registerAnonymousEventHandler("PRSState.Char.player.spiritFocusBonus",
         function()
-            if gmcp.Char.player.spiritFocusBonus then
-                spiritFocus:echo(gmcp.Char.player.spiritFocusBonus .. " ", "#3b78ff", "r")
+            if PRSState.Char.player.spiritFocusBonus then
+                spiritFocus:echo(PRSState.Char.player.spiritFocusBonus .. " ", "#3b78ff", "r")
             end
         end)
     local spiritFocusTitle = Geyser.Label:new({
@@ -528,14 +528,14 @@ local function statsTab()
     }, row12)
     agilityCritical:setColor(0, 0, 0, 0)
     agilityCritical:setFontSize(8)
-    agilityCritical:echo(string.format("%0.2f", gmcp.Char.player.agilityCriticalBonus) .. " ", "#e74856", "r")
+    agilityCritical:echo(string.format("%0.2f", PRSState.Char.player.agilityCriticalBonus) .. " ", "#e74856", "r")
     if PRSstats.events.agilityCriticalBonusChange_id then
         killAnonymousEventHandler(PRSstats.events.agilityCriticalBonusChange_id)
     end
     PRSstats.events.agilityCriticalBonusChange_id = registerAnonymousEventHandler(
-        "gmcp.Char.player.agilityCriticalBonus", function()
-            if gmcp.Char.player.agilityCriticalBonus then
-                agilityCritical:echo(string.format("%0.2f", gmcp.Char.player.agilityCriticalBonus) .. " ", "#e74856",
+        "PRSState.Char.player.agilityCriticalBonus", function()
+            if PRSState.Char.player.agilityCriticalBonus then
+                agilityCritical:echo(string.format("%0.2f", PRSState.Char.player.agilityCriticalBonus) .. " ", "#e74856",
                     "r")
             end
         end)
@@ -550,14 +550,14 @@ local function statsTab()
     }, row12)
     spiritCommand:setColor(0, 0, 0, 0)
     spiritCommand:setFontSize(8)
-    spiritCommand:echo(gmcp.Char.player.spiritCommandBonus .. " ", "#16c60c", "r")
+    spiritCommand:echo(PRSState.Char.player.spiritCommandBonus .. " ", "#16c60c", "r")
     if PRSstats.events.spiritCommandBonusChange_id then
         killAnonymousEventHandler(PRSstats.events.spiritCommandBonusChange_id)
     end
-    PRSstats.events.spiritCommandBonusChange_id = registerAnonymousEventHandler("gmcp.Char.player.spiritCommandBonus",
+    PRSstats.events.spiritCommandBonusChange_id = registerAnonymousEventHandler("PRSState.Char.player.spiritCommandBonus",
         function()
-            if gmcp.Char.player.spiritCommandBonus then
-                spiritCommand:echo(gmcp.Char.player.spiritCommandBonus .. " ", "#16c60c", "r")
+            if PRSState.Char.player.spiritCommandBonus then
+                spiritCommand:echo(PRSState.Char.player.spiritCommandBonus .. " ", "#16c60c", "r")
             end
         end)
     local spiritCommandTitle = Geyser.Label:new({
@@ -575,14 +575,14 @@ local function statsTab()
     }, row13)
     agilityCriticalMultiplier:setColor(0, 0, 0, 0)
     agilityCriticalMultiplier:setFontSize(8)
-    agilityCriticalMultiplier:echo(gmcp.Char.player.agilityCriticalMultiplierBonus .. " ", "#c50f1f", "r")
+    agilityCriticalMultiplier:echo(PRSState.Char.player.agilityCriticalMultiplierBonus .. " ", "#c50f1f", "r")
     if PRSstats.events.agilityCriticalMultiplierBonusChange_id then
         killAnonymousEventHandler(PRSstats.events.agilityCriticalMultiplierBonusChange_id)
     end
     PRSstats.events.agilityCriticalMultiplierBonusChange_id =
-        registerAnonymousEventHandler("gmcp.Char.player.agilityCriticalMultiplierBonus", function()
-            if gmcp.Char.player.agilityCriticalMultiplierBonus then
-                agilityCriticalMultiplier:echo(gmcp.Char.player.agilityCriticalMultiplierBonus .. " ", "#c50f1f", "r")
+        registerAnonymousEventHandler("PRSState.Char.player.agilityCriticalMultiplierBonus", function()
+            if PRSState.Char.player.agilityCriticalMultiplierBonus then
+                agilityCriticalMultiplier:echo(PRSState.Char.player.agilityCriticalMultiplierBonus .. " ", "#c50f1f", "r")
             end
         end)
     local agilityCriticalMultiplierTitle = Geyser.Label:new({
@@ -596,14 +596,14 @@ local function statsTab()
     }, row13)
     spiritResist:setColor(0, 0, 0, 0)
     spiritResist:setFontSize(8)
-    spiritResist:echo(gmcp.Char.player.spiritResistBonus .. " ", "#13a10e", "r")
+    spiritResist:echo(PRSState.Char.player.spiritResistBonus .. " ", "#13a10e", "r")
     if PRSstats.events.spiritResistBonusChange_id then
         killAnonymousEventHandler(PRSstats.events.spiritResistBonusChange_id)
     end
-    PRSstats.events.spiritResistBonusChange_id = registerAnonymousEventHandler("gmcp.Char.player.spiritResistBonus",
+    PRSstats.events.spiritResistBonusChange_id = registerAnonymousEventHandler("PRSState.Char.player.spiritResistBonus",
         function()
-            if gmcp.Char.player.spiritResistBonus then
-                spiritResist:echo(gmcp.Char.player.spiritResistBonus .. " ", "#13a10e", "r")
+            if PRSState.Char.player.spiritResistBonus then
+                spiritResist:echo(PRSState.Char.player.spiritResistBonus .. " ", "#13a10e", "r")
             end
         end)
     local spiritResistTitle = Geyser.Label:new({
@@ -640,33 +640,33 @@ local function statsTab()
     }, damageHBox)
     damage:setColor(0, 0, 0, 0)
     damage:setFontSize(8)
-    damage:echo(string.format("%0.0f", gmcp.Char.player.damLow) .. "-" ..
-                    string.format("%0.0f", gmcp.Char.player.damHigh) .. " +" .. gmcp.Char.player.damage, "#e74856", "c")
+    damage:echo(string.format("%0.0f", PRSState.Char.player.damLow) .. "-" ..
+                    string.format("%0.0f", PRSState.Char.player.damHigh) .. " +" .. PRSState.Char.player.damage, "#e74856", "c")
     if PRSstats.events.damLowChange_id then
         killAnonymousEventHandler(PRSstats.events.damLowChange_id)
     end
-    PRSstats.events.damLowChange_id = registerAnonymousEventHandler("gmcp.Char.player.damLow", function()
-        if gmcp.Char.player.damLow then
-            damage:echo(string.format("%0.0f", gmcp.Char.player.damLow) .. "-" ..
-                            string.format("%0.0f", gmcp.Char.player.damHigh), "#e74856", "c")
+    PRSstats.events.damLowChange_id = registerAnonymousEventHandler("PRSState.Char.player.damLow", function()
+        if PRSState.Char.player.damLow then
+            damage:echo(string.format("%0.0f", PRSState.Char.player.damLow) .. "-" ..
+                            string.format("%0.0f", PRSState.Char.player.damHigh), "#e74856", "c")
         end
     end)
     if PRSstats.events.damHighChange_id then
         killAnonymousEventHandler(PRSstats.events.damHighChange_id)
     end
-    PRSstats.events.damHighChange_id = registerAnonymousEventHandler("gmcp.Char.player.damHigh", function()
-        if gmcp.Char.player.damHigh then
-            damage:echo(string.format("%0.0f", gmcp.Char.player.damLow) .. "-" ..
-                            string.format("%0.0f", gmcp.Char.player.damHigh), "#e74856", "c")
+    PRSstats.events.damHighChange_id = registerAnonymousEventHandler("PRSState.Char.player.damHigh", function()
+        if PRSState.Char.player.damHigh then
+            damage:echo(string.format("%0.0f", PRSState.Char.player.damLow) .. "-" ..
+                            string.format("%0.0f", PRSState.Char.player.damHigh), "#e74856", "c")
         end
     end)
     if PRSstats.events.damageChange_id then
         killAnonymousEventHandler(PRSstats.events.damageChange_id)
     end
-    PRSstats.events.damageChange_id = registerAnonymousEventHandler("gmcp.Char.player.damage", function()
-        if gmcp.Char.player.damage then
-            damage:echo(string.format("%0.0f", gmcp.Char.player.damLow) .. "-" ..
-                            string.format("%0.0f", gmcp.Char.player.damHigh) .. " +" .. gmcp.Char.player.damage,
+    PRSstats.events.damageChange_id = registerAnonymousEventHandler("PRSState.Char.player.damage", function()
+        if PRSState.Char.player.damage then
+            damage:echo(string.format("%0.0f", PRSState.Char.player.damLow) .. "-" ..
+                            string.format("%0.0f", PRSState.Char.player.damHigh) .. " +" .. PRSState.Char.player.damage,
                 "#e74856", "c")
         end
     end)
@@ -675,13 +675,13 @@ local function statsTab()
     }, damageHBox)
     dpr:setColor(0, 0, 0, 0)
     dpr:setFontSize(8)
-    dpr:echo(string.format("%0.1f", gmcp.Char.player.dpr) .. " dpr", "#c50f1f", "l")
+    dpr:echo(string.format("%0.1f", PRSState.Char.player.dpr) .. " dpr", "#c50f1f", "l")
     if PRSstats.events.dprChange_id then
         killAnonymousEventHandler(PRSstats.events.dprChange_id)
     end
-    PRSstats.events.dprChange_id = registerAnonymousEventHandler("gmcp.Char.player.dpr", function()
-        if gmcp.Char.player.dpr then
-            dpr:echo(string.format("%0.1f", gmcp.Char.player.dpr) .. " dpr", "#c50f1f", "l")
+    PRSstats.events.dprChange_id = registerAnonymousEventHandler("PRSState.Char.player.dpr", function()
+        if PRSState.Char.player.dpr then
+            dpr:echo(string.format("%0.1f", PRSState.Char.player.dpr) .. " dpr", "#c50f1f", "l")
         end
     end)
     -- Armor
@@ -700,28 +700,28 @@ local function statsTab()
     }, armorHBox)
     armor:setColor(0, 0, 0, 0)
     armor:setFontSize(8)
-    armor:echo(gmcp.Char.player.armor, "#f2f2f2", "c")
+    armor:echo(PRSState.Char.player.armor, "#f2f2f2", "c")
     if PRSstats.events.armorChange_id then
         killAnonymousEventHandler(PRSstats.events.armorChange_id)
     end
-    PRSstats.events.armorChange_id = registerAnonymousEventHandler("gmcp.Char.player.armor", function()
-        if gmcp.Char.player.armor then
-            armor:echo(gmcp.Char.player.armor, "#f2f2f2", "c")
+    PRSstats.events.armorChange_id = registerAnonymousEventHandler("PRSState.Char.player.armor", function()
+        if PRSState.Char.player.armor then
+            armor:echo(PRSState.Char.player.armor, "#f2f2f2", "c")
         end
     end)
-    local armorAbsorbtion = Geyser.Label:new({
-        name = "armorAbsorbtion"
+    local armorAbsorption = Geyser.Label:new({
+        name = "armorAbsorption"
     }, armorHBox)
-    armorAbsorbtion:setColor(0, 0, 0, 0)
-    armorAbsorbtion:setFontSize(8)
-    armorAbsorbtion:echo(gmcp.Char.player.armorAbsorbtion .. " absorb", "#f2f2f2", "l")
-    if PRSstats.events.armorAbsorbtionChange_id then
-        killAnonymousEventHandler(PRSstats.events.armorAbsorbtionChange_id)
+    armorAbsorption:setColor(0, 0, 0, 0)
+    armorAbsorption:setFontSize(8)
+    armorAbsorption:echo(PRSState.Char.player.armorAbsorption .. " absorb", "#f2f2f2", "l")
+    if PRSstats.events.armorAbsorptionChange_id then
+        killAnonymousEventHandler(PRSstats.events.armorAbsorptionChange_id)
     end
-    PRSstats.events.armorAbsorbtionChange_id = registerAnonymousEventHandler("gmcp.Char.player.armorAbsorbtion",
+    PRSstats.events.armorAbsorptionChange_id = registerAnonymousEventHandler("PRSState.Char.player.armorAbsorption",
         function()
-            if gmcp.Char.player.armorAbsorbtion then
-                armorAbsorbtion:echo(gmcp.Char.player.armorAbsorbtion .. " absorb", "#f2f2f2", "l")
+            if PRSState.Char.player.armorAbsorption then
+                armorAbsorption:echo(PRSState.Char.player.armorAbsorption .. " absorb", "#f2f2f2", "l")
             end
         end)
     -- Speed
@@ -740,13 +740,13 @@ local function statsTab()
     }, speedHBox)
     speed:setColor(0, 0, 0, 0)
     speed:setFontSize(8)
-    speed:echo(gmcp.Char.player.speed, "#f9f1a5", "c")
+    speed:echo(PRSState.Char.player.speed, "#f9f1a5", "c")
     if PRSstats.events.speedChange_id then
         killAnonymousEventHandler(PRSstats.events.speedChange_id)
     end
-    PRSstats.events.speedChange_id = registerAnonymousEventHandler("gmcp.Char.player.speed", function()
-        if gmcp.Char.player.speed then
-            speed:echo(gmcp.Char.player.speed, "#f9f1a5", "c")
+    PRSstats.events.speedChange_id = registerAnonymousEventHandler("PRSState.Char.player.speed", function()
+        if PRSState.Char.player.speed then
+            speed:echo(PRSState.Char.player.speed, "#f9f1a5", "c")
         end
     end)
     local regeneration = Geyser.Label:new({
@@ -754,13 +754,13 @@ local function statsTab()
     }, speedHBox)
     regeneration:setColor(0, 0, 0, 0)
     regeneration:setFontSize(8)
-    regeneration:echo(gmcp.Char.player.regeneration .. " regen", "#16c60c", "l")
+    regeneration:echo(PRSState.Char.player.regeneration .. " regen", "#16c60c", "l")
     if PRSstats.events.regenerationChange_id then
         killAnonymousEventHandler(PRSstats.events.regenerationChange_id)
     end
-    PRSstats.events.regenerationChange_id = registerAnonymousEventHandler("gmcp.Char.player.regeneration", function()
-        if gmcp.Char.player.regeneration then
-            regeneration:echo(gmcp.Char.player.regeneration, "#16c60c", "l")
+    PRSstats.events.regenerationChange_id = registerAnonymousEventHandler("PRSState.Char.player.regeneration", function()
+        if PRSState.Char.player.regeneration then
+            regeneration:echo(PRSState.Char.player.regeneration, "#16c60c", "l")
         end
     end)
     -- Recovery
@@ -779,13 +779,13 @@ local function statsTab()
     }, recoveryHBox)
     recoveryTime:setColor(0, 0, 0, 0)
     recoveryTime:setFontSize(8)
-    recoveryTime:echo(string.format("%0.2f", gmcp.Char.player.recoveryTime) .. "s", "#f9f1a5", "c")
+    recoveryTime:echo(string.format("%0.2f", PRSState.Char.player.recoveryTime) .. "s", "#f9f1a5", "c")
     if PRSstats.events.recoveryTimeChange_id then
         killAnonymousEventHandler(PRSstats.events.recoveryTimeChange_id)
     end
-    PRSstats.events.recoveryTimeChange_id = registerAnonymousEventHandler("gmcp.Char.player.recoveryTime", function()
-        if gmcp.Char.player.recoveryTime then
-            recoveryTime:echo(string.format("%0.2f", gmcp.Char.player.recoveryTime) .. "s", "#f9f1a5", "c")
+    PRSstats.events.recoveryTimeChange_id = registerAnonymousEventHandler("PRSState.Char.player.recoveryTime", function()
+        if PRSState.Char.player.recoveryTime then
+            recoveryTime:echo(string.format("%0.2f", PRSState.Char.player.recoveryTime) .. "s", "#f9f1a5", "c")
         end
     end)
     local apr = Geyser.Label:new({
@@ -793,13 +793,13 @@ local function statsTab()
     }, recoveryHBox)
     apr:setColor(0, 0, 0, 0)
     apr:setFontSize(8)
-    apr:echo(string.format("%0.2f", gmcp.Char.player.apr) .. " apr", "#f9f1a5", "l")
+    apr:echo(string.format("%0.2f", PRSState.Char.player.apr) .. " apr", "#f9f1a5", "l")
     if PRSstats.events.aprChange_id then
         killAnonymousEventHandler(PRSstats.events.aprChange_id)
     end
-    PRSstats.events.aprChange_id = registerAnonymousEventHandler("gmcp.Char.player.apr", function()
-        if gmcp.Char.player.spr then
-            apr:echo(string.format("%0.2f", gmcp.Char.player.apr) .. " apr", "#f9f1a5", "l")
+    PRSstats.events.aprChange_id = registerAnonymousEventHandler("PRSState.Char.player.apr", function()
+        if PRSState.Char.player.spr then
+            apr:echo(string.format("%0.2f", PRSState.Char.player.apr) .. " apr", "#f9f1a5", "l")
         end
     end)
     -- Critical
@@ -818,14 +818,14 @@ local function statsTab()
     }, criticalHBox)
     criticalChance:setColor(0, 0, 0, 0)
     criticalChance:setFontSize(8)
-    criticalChance:echo(string.format("%0.2f", gmcp.Char.player.criticalChance) .. "%", "#f9f1a5", "c")
+    criticalChance:echo(string.format("%0.2f", PRSState.Char.player.criticalChance) .. "%", "#f9f1a5", "c")
     if PRSstats.events.criticalChanceChange_id then
         killAnonymousEventHandler(PRSstats.events.criticalChanceChange_id)
     end
-    PRSstats.events.criticalChanceChange_id = registerAnonymousEventHandler("gmcp.Char.player.criticalChance",
+    PRSstats.events.criticalChanceChange_id = registerAnonymousEventHandler("PRSState.Char.player.criticalChance",
         function()
-            if gmcp.Char.player.criticalChance then
-                criticalChance:echo(string.format("%0.2f", gmcp.Char.player.criticalChance) .. "%", "#f9f1a5", "c")
+            if PRSState.Char.player.criticalChance then
+                criticalChance:echo(string.format("%0.2f", PRSState.Char.player.criticalChance) .. "%", "#f9f1a5", "c")
             end
         end)
     local criticalMultiplier = Geyser.Label:new({
@@ -833,14 +833,14 @@ local function statsTab()
     }, criticalHBox)
     criticalMultiplier:setColor(0, 0, 0, 0)
     criticalMultiplier:setFontSize(8)
-    criticalMultiplier:echo(string.format("%0.2f", gmcp.Char.player.criticalMultiplier) .. "x", "#e74856", "l")
+    criticalMultiplier:echo(string.format("%0.2f", PRSState.Char.player.criticalMultiplier) .. "x", "#e74856", "l")
     if PRSstats.events.criticalMultiplierChange_id then
         killAnonymousEventHandler(PRSstats.events.criticalMultiplierChange_id)
     end
-    PRSstats.events.criticalMultiplierChange_id = registerAnonymousEventHandler("gmcp.Char.player.criticalMultiplier",
+    PRSstats.events.criticalMultiplierChange_id = registerAnonymousEventHandler("PRSState.Char.player.criticalMultiplier",
         function()
-            if gmcp.Char.player.criticalMultiplier then
-                criticalMultiplier:echo(string.format("%0.2f", gmcp.Char.player.criticalMultiplier) .. "x", "#e74856",
+            if PRSState.Char.player.criticalMultiplier then
+                criticalMultiplier:echo(string.format("%0.2f", PRSState.Char.player.criticalMultiplier) .. "x", "#e74856",
                     "l")
             end
         end)
@@ -860,14 +860,14 @@ local function statsTab()
     }, magicDamageHBox)
     magicDamageBonus:setColor(0, 0, 0, 0)
     magicDamageBonus:setFontSize(8)
-    magicDamageBonus:echo("+" .. gmcp.Char.player.magicDamageBonus, "#b4009e", "c")
+    magicDamageBonus:echo("+" .. PRSState.Char.player.magicDamageBonus, "#b4009e", "c")
     if PRSstats.events.magicDamageBonusChange_id then
         killAnonymousEventHandler(PRSstats.events.magicDamageBonusChange_id)
     end
-    PRSstats.events.magicDamageBonusChange_id = registerAnonymousEventHandler("gmcp.Char.player.magicDamageBonus",
+    PRSstats.events.magicDamageBonusChange_id = registerAnonymousEventHandler("PRSState.Char.player.magicDamageBonus",
         function()
-            if gmcp.Char.player.magicDamageBonus then
-                magicDamageBonus:echo("+" .. gmcp.Char.player.magicDamageBonus, "#b4009e", "c")
+            if PRSState.Char.player.magicDamageBonus then
+                magicDamageBonus:echo("+" .. PRSState.Char.player.magicDamageBonus, "#b4009e", "c")
             end
         end)
     local magicCasting = Geyser.Label:new({
@@ -875,13 +875,13 @@ local function statsTab()
     }, magicDamageHBox)
     magicCasting:setColor(0, 0, 0, 0)
     magicCasting:setFontSize(8)
-    magicCasting:echo("cast " .. string.format("%0.2f", gmcp.Char.player.castingTime) .. "s", "#61d6d6", "l")
+    magicCasting:echo("cast " .. string.format("%0.2f", PRSState.Char.player.castingTime) .. "s", "#61d6d6", "l")
     if PRSstats.events.magicCastingChange_id then
         killAnonymousEventHandler(PRSstats.events.magicCastingChange_id)
     end
-    PRSstats.events.magicCastingChange_id = registerAnonymousEventHandler("gmcp.Char.player.castingTime", function()
-        if gmcp.Char.player.castingTime then
-            magicCasting:echo("cast " .. string.format("%0.2f", gmcp.Char.player.castingTime) .. "s", "#61d6d6", "l")
+    PRSstats.events.magicCastingChange_id = registerAnonymousEventHandler("PRSState.Char.player.castingTime", function()
+        if PRSState.Char.player.castingTime then
+            magicCasting:echo("cast " .. string.format("%0.2f", PRSState.Char.player.castingTime) .. "s", "#61d6d6", "l")
         end
     end)
     -- Focus
@@ -900,13 +900,13 @@ local function statsTab()
     }, focusHBox)
     focus:setColor(0, 0, 0, 0)
     focus:setFontSize(8)
-    focus:echo(gmcp.Char.player.focus, "#3b78ff", "c")
+    focus:echo(PRSState.Char.player.focus, "#3b78ff", "c")
     if PRSstats.events.focusChange_id then
         killAnonymousEventHandler(PRSstats.events.focusChange_id)
     end
-    PRSstats.events.focusChange_id = registerAnonymousEventHandler("gmcp.Char.player.focus", function()
-        if gmcp.Char.player.focus then
-            focus:echo(gmcp.Char.player.focus, "#3b78ff", "c")
+    PRSstats.events.focusChange_id = registerAnonymousEventHandler("PRSState.Char.player.focus", function()
+        if PRSState.Char.player.focus then
+            focus:echo(PRSState.Char.player.focus, "#3b78ff", "c")
         end
     end)
     local focusChance = Geyser.Label:new({
@@ -914,13 +914,13 @@ local function statsTab()
     }, focusHBox)
     focusChance:setColor(0, 0, 0, 0)
     focusChance:setFontSize(8)
-    focusChance:echo(string.format("%0.2f", gmcp.Char.player.interruptChance) .. "%", "#3b78ff", "l")
+    focusChance:echo(string.format("%0.2f", PRSState.Char.player.interruptChance) .. "%", "#3b78ff", "l")
     if PRSstats.events.focusChanceChange_id then
         killAnonymousEventHandler(PRSstats.events.focusChanceChange_id)
     end
-    PRSstats.events.focusChanceChange_id = registerAnonymousEventHandler("gmcp.Char.player.interruptChance", function()
-        if gmcp.Char.player.interruptChance then
-            focusChance:echo(string.format("%0.2f", gmcp.Char.player.interruptChance) .. "%", "#3b78ff", "l")
+    PRSstats.events.focusChanceChange_id = registerAnonymousEventHandler("PRSState.Char.player.interruptChance", function()
+        if PRSState.Char.player.interruptChance then
+            focusChance:echo(string.format("%0.2f", PRSState.Char.player.interruptChance) .. "%", "#3b78ff", "l")
         end
     end)
     local resistancesTitle = Geyser.Label:new({
@@ -946,14 +946,14 @@ local function statsTab()
     }, resist1HBox)
     resistBludgeoning:setColor(0, 0, 0, 0)
     resistBludgeoning:setFontSize(8)
-    resistBludgeoning:echo(gmcp.Char.player.resistBludgeoning, "#c19c00", "l")
+    resistBludgeoning:echo(PRSState.Char.player.resistBludgeoning, "#c19c00", "l")
     if PRSstats.events.resistBludgeoningChange_id then
         killAnonymousEventHandler(PRSstats.events.resistBludgeoningChange_id)
     end
-    PRSstats.events.resistBludgeoningChange_id = registerAnonymousEventHandler("gmcp.Char.player.resistBludgeoning",
+    PRSstats.events.resistBludgeoningChange_id = registerAnonymousEventHandler("PRSState.Char.player.resistBludgeoning",
         function()
-            if gmcp.Char.player.resistBludgeoning then
-                resistBludgeoning:echo(gmcp.Char.player.resistBludgeoning, "#c19c00", "l")
+            if PRSState.Char.player.resistBludgeoning then
+                resistBludgeoning:echo(PRSState.Char.player.resistBludgeoning, "#c19c00", "l")
             end
         end)
     local arcaneTitle = Geyser.Label:new({
@@ -967,13 +967,13 @@ local function statsTab()
     }, resist1HBox)
     resistArcane:setColor(0, 0, 0, 0)
     resistArcane:setFontSize(8)
-    resistArcane:echo(gmcp.Char.player.resistArcane, "#61d6d6", "l")
+    resistArcane:echo(PRSState.Char.player.resistArcane, "#61d6d6", "l")
     if PRSstats.events.resistArcaneChange_id then
         killAnonymousEventHandler(PRSstats.events.resistArcaneChange_id)
     end
-    PRSstats.events.resistArcaneChange_id = registerAnonymousEventHandler("gmcp.Char.player.resistArcane", function()
-        if gmcp.Char.player.resistArcane then
-            resistArcane:echo(gmcp.Char.player.resistArcane, "#61d6d6", "l")
+    PRSstats.events.resistArcaneChange_id = registerAnonymousEventHandler("PRSState.Char.player.resistArcane", function()
+        if PRSState.Char.player.resistArcane then
+            resistArcane:echo(PRSState.Char.player.resistArcane, "#61d6d6", "l")
         end
     end)
     local resistAcidTitle = Geyser.Label:new({
@@ -987,13 +987,13 @@ local function statsTab()
     }, resist1HBox)
     resistAcid:setColor(0, 0, 0, 0)
     resistAcid:setFontSize(8)
-    resistAcid:echo(gmcp.Char.player.resistAcid, "#f9f1a5", "l")
+    resistAcid:echo(PRSState.Char.player.resistAcid, "#f9f1a5", "l")
     if PRSstats.events.resistAcidChange_id then
         killAnonymousEventHandler(PRSstats.events.resistAcidChange_id)
     end
-    PRSstats.events.resistAcidChange_id = registerAnonymousEventHandler("gmcp.Char.player.resistAcid", function()
-        if gmcp.Char.player.resistAcid then
-            resistAcid:echo(gmcp.Char.player.resistAcid, "#f9f1a5", "l")
+    PRSstats.events.resistAcidChange_id = registerAnonymousEventHandler("PRSState.Char.player.resistAcid", function()
+        if PRSState.Char.player.resistAcid then
+            resistAcid:echo(PRSState.Char.player.resistAcid, "#f9f1a5", "l")
         end
     end)
     -- Resistance Row 2: Pierce, Electric, & Holy
@@ -1012,14 +1012,14 @@ local function statsTab()
     }, resist2HBox)
     resistPiercing:setColor(0, 0, 0, 0)
     resistPiercing:setFontSize(8)
-    resistPiercing:echo(gmcp.Char.player.resistPiercing, "#f9f1a5", "l")
+    resistPiercing:echo(PRSState.Char.player.resistPiercing, "#f9f1a5", "l")
     if PRSstats.events.resistPiercingChange_id then
         killAnonymousEventHandler(PRSstats.events.resistPiercingChange_id)
     end
-    PRSstats.events.resistPiercingChange_id = registerAnonymousEventHandler("gmcp.Char.player.resistPiercing",
+    PRSstats.events.resistPiercingChange_id = registerAnonymousEventHandler("PRSState.Char.player.resistPiercing",
         function()
-            if gmcp.Char.player.resistPiercing then
-                resistPiercing:echo(gmcp.Char.player.resistPiercing, "#f9f1a5", "l")
+            if PRSState.Char.player.resistPiercing then
+                resistPiercing:echo(PRSState.Char.player.resistPiercing, "#f9f1a5", "l")
             end
         end)
     local resistElectricTitle = Geyser.Label:new({
@@ -1033,14 +1033,14 @@ local function statsTab()
     }, resist2HBox)
     resistElectric:setColor(0, 0, 0, 0)
     resistElectric:setFontSize(8)
-    resistElectric:echo(gmcp.Char.player.resistElectric, "#f9f1a5", "l")
+    resistElectric:echo(PRSState.Char.player.resistElectric, "#f9f1a5", "l")
     if PRSstats.events.resistElectricChange_id then
         killAnonymousEventHandler(PRSstats.events.resistElectricChange_id)
     end
-    PRSstats.events.resistElectricChange_id = registerAnonymousEventHandler("gmcp.Char.player.resistElectric",
+    PRSstats.events.resistElectricChange_id = registerAnonymousEventHandler("PRSState.Char.player.resistElectric",
         function()
-            if gmcp.Char.player.resistElectric then
-                resistElectric:echo(gmcp.Char.player.resistElectric, "#f9f1a5", "l")
+            if PRSState.Char.player.resistElectric then
+                resistElectric:echo(PRSState.Char.player.resistElectric, "#f9f1a5", "l")
             end
         end)
     local resistHolyTitle = Geyser.Label:new({
@@ -1054,13 +1054,13 @@ local function statsTab()
     }, resist2HBox)
     resistHoly:setColor(0, 0, 0, 0)
     resistHoly:setFontSize(8)
-    resistHoly:echo(gmcp.Char.player.resistHoly, "#f2f2f2", "l")
+    resistHoly:echo(PRSState.Char.player.resistHoly, "#f2f2f2", "l")
     if PRSstats.events.resistHolyChange_id then
         killAnonymousEventHandler(PRSstats.events.resistHolyChange_id)
     end
-    PRSstats.events.resistHolyChange_id = registerAnonymousEventHandler("gmcp.Char.player.resistHoly", function()
-        if gmcp.Char.player.resistHoly then
-            resistHoly:echo(gmcp.Char.player.resistHoly, "#f2f2f2", "l")
+    PRSstats.events.resistHolyChange_id = registerAnonymousEventHandler("PRSState.Char.player.resistHoly", function()
+        if PRSState.Char.player.resistHoly then
+            resistHoly:echo(PRSState.Char.player.resistHoly, "#f2f2f2", "l")
         end
     end)
     -- Row 3: Slash, Fire, & Poison
@@ -1079,14 +1079,14 @@ local function statsTab()
     }, resist3HBox)
     resistSlashing:setColor(0, 0, 0, 0)
     resistSlashing:setFontSize(8)
-    resistSlashing:echo(gmcp.Char.player.resistSlashing, "#c50f1f", "l")
+    resistSlashing:echo(PRSState.Char.player.resistSlashing, "#c50f1f", "l")
     if PRSstats.events.resistSlashingChange_id then
         killAnonymousEventHandler(PRSstats.events.resistSlashingChange_id)
     end
-    PRSstats.events.resistSlashingChange_id = registerAnonymousEventHandler("gmcp.Char.player.resistSlashing",
+    PRSstats.events.resistSlashingChange_id = registerAnonymousEventHandler("PRSState.Char.player.resistSlashing",
         function()
-            if gmcp.Char.player.resistSlashing then
-                resistSlashing:echo(gmcp.Char.player.resistSlashing, "#c50f1f", "l")
+            if PRSState.Char.player.resistSlashing then
+                resistSlashing:echo(PRSState.Char.player.resistSlashing, "#c50f1f", "l")
             end
         end)
     local resistFireTitle = Geyser.Label:new({
@@ -1100,13 +1100,13 @@ local function statsTab()
     }, resist3HBox)
     resistFire:setColor(0, 0, 0, 0)
     resistFire:setFontSize(8)
-    resistFire:echo(gmcp.Char.player.resistFire, "#e74856", "l")
+    resistFire:echo(PRSState.Char.player.resistFire, "#e74856", "l")
     if PRSstats.events.resistFireChange_id then
         killAnonymousEventHandler(PRSstats.events.resistFireChange_id)
     end
-    PRSstats.events.resistFireChange_id = registerAnonymousEventHandler("gmcp.Char.player.resistFire", function()
-        if gmcp.Char.player.resistFire then
-            resistFire:echo(gmcp.Char.player.resistFire, "#e74856", "l")
+    PRSstats.events.resistFireChange_id = registerAnonymousEventHandler("PRSState.Char.player.resistFire", function()
+        if PRSState.Char.player.resistFire then
+            resistFire:echo(PRSState.Char.player.resistFire, "#e74856", "l")
         end
     end)
     local resistPoisonTitle = Geyser.Label:new({
@@ -1120,13 +1120,13 @@ local function statsTab()
     }, resist3HBox)
     resistPoison:setColor(0, 0, 0, 0)
     resistPoison:setFontSize(8)
-    resistPoison:echo(gmcp.Char.player.resistPoison, "#13a10e", "l")
+    resistPoison:echo(PRSState.Char.player.resistPoison, "#13a10e", "l")
     if PRSstats.events.resistPoisonChange_id then
         killAnonymousEventHandler(PRSstats.events.resistPoisonChange_id)
     end
-    PRSstats.events.resistPoisonChange_id = registerAnonymousEventHandler("gmcp.Char.player.resistPoison", function()
-        if gmcp.Char.player.resistPoison then
-            resistPoison:echo(gmcp.Char.player.resistPoison, "#13a10e", "l")
+    PRSstats.events.resistPoisonChange_id = registerAnonymousEventHandler("PRSState.Char.player.resistPoison", function()
+        if PRSState.Char.player.resistPoison then
+            resistPoison:echo(PRSState.Char.player.resistPoison, "#13a10e", "l")
         end
     end)
     -- Ice
@@ -1146,13 +1146,13 @@ local function statsTab()
     }, resist4HBox)
     resistIce:setColor(0, 0, 0, 0)
     resistIce:setFontSize(8)
-    resistIce:echo(gmcp.Char.player.resistIce, "#3b78ff", "l")
+    resistIce:echo(PRSState.Char.player.resistIce, "#3b78ff", "l")
     if PRSstats.events.resistIceChange_id then
         killAnonymousEventHandler(PRSstats.events.resistIceChange_id)
     end
-    PRSstats.events.resistIceChange_id = registerAnonymousEventHandler("gmcp.Char.player.resistIce", function()
-        if gmcp.Char.player.resistIce then
-            resistIce:echo(gmcp.Char.player.resistIce, "#3b78ff", "l")
+    PRSstats.events.resistIceChange_id = registerAnonymousEventHandler("PRSState.Char.player.resistIce", function()
+        if PRSState.Char.player.resistIce then
+            resistIce:echo(PRSState.Char.player.resistIce, "#3b78ff", "l")
         end
     end)
 end
@@ -1165,10 +1165,10 @@ local function add_gauges()
         height = 25,
         width = "95%", -- everything up to here is standard Geyser.Gauge
         updateTime = 0,
-        updateEvent = "gmcp.Char.player",
+        updateEvent = "PRSState.Char.player",
         textTemplate = "HP: |c / |m  (|p%)", -- gauge will show "HP: 500/1000 (50%)" as the text if you had 500 current and 1000 max hp
-        currentVariable = "gmcp.Char.player.hp", -- if gmcp.Char.Vitals.hp is nil or unreachable, it will use the defaultCurrent of 50
-        maxVariable = "gmcp.Char.player.maxHp" -- if gmcp.Char.Vitals.maxhp is nil or unreachable, it will use the defaultMax of 100
+        currentVariable = "PRSState.Char.player.hp", -- if gmcp.Char.Vitals.hp is nil or unreachable, it will use the defaultCurrent of 50
+        maxVariable = "PRSState.Char.player.maxHp" -- if gmcp.Char.Vitals.maxhp is nil or unreachable, it will use the defaultMax of 100
     }, GUI.tabwindow1.Vitalscenter)
     HPbar.front:setStyleSheet([[background-color: #63e2b7;
       border-top: 1px black solid;
@@ -1197,10 +1197,10 @@ local function add_gauges()
         height = 25,
         width = "95%",
         updateTime = 0,
-        updateEvent = "gmcp.Char.player",
+        updateEvent = "PRSState.Char.player",
         textTemplate = "EN: |c / |m  (|p%)",
-        currentVariable = "gmcp.Char.player.energy",
-        maxVariable = "gmcp.Char.player.maxEnergy"
+        currentVariable = "PRSState.Char.player.energy",
+        maxVariable = "PRSState.Char.player.maxEnergy"
     }, GUI.tabwindow1.Vitalscenter)
     ENbar.front:setStyleSheet([[background-color: #cccccc;
       border-top: 1px black solid;
@@ -1229,10 +1229,10 @@ local function add_gauges()
         height = 25,
         width = "95%",
         updateTime = 0,
-        updateEvent = "gmcp.Char.player",
+        updateEvent = "PRSState.Char.player",
         textTemplate = "ST: |c / |m  (|p%)",
-        currentVariable = "gmcp.Char.player.stamina",
-        maxVariable = "gmcp.Char.player.maxStamina"
+        currentVariable = "PRSState.Char.player.stamina",
+        maxVariable = "PRSState.Char.player.maxStamina"
     }, GUI.tabwindow1.Vitalscenter)
     STbar.front:setStyleSheet([[background-color: #f2c97d;
       border-top: 1px black solid;
@@ -1259,10 +1259,10 @@ local function add_gauges()
         height = 25,
         width = "95%",
         updateTime = 0,
-        updateEvent = "gmcp.Char.player",
+        updateEvent = "PRSState.Char.player",
         textTemplate = "Food: |c / |m  (|p%)",
-        currentVariable = "gmcp.Char.player.food",
-        maxVariable = "gmcp.Char.player.maxFood"
+        currentVariable = "PRSState.Char.player.food",
+        maxVariable = "PRSState.Char.player.maxFood"
     }, GUI.tabwindow1.Vitalscenter)
     FPbar.front:setStyleSheet([[background-color: #63e2b7;
       border-top: 1px black solid;
@@ -1290,10 +1290,10 @@ local function add_gauges()
         height = 25,
         width = "95%",
         updateTime = 0,
-        updateEvent = "gmcp.Char.player",
+        updateEvent = "PRSState.Char.player",
         textTemplate = "Rage: |c",
-        currentVariable = "gmcp.Char.player.rage",
-        maxVariable = "gmcp.Char.player.maxRage"
+        currentVariable = "PRSState.Char.player.rage",
+        maxVariable = "PRSState.Char.player.maxRage"
     }, GUI.tabwindow2.Combatcenter)
     RPbar.front:setStyleSheet([[background-color: #e74856;
         border-top: 1px black solid;
@@ -1320,10 +1320,10 @@ local function add_gauges()
         height = 25,
         width = "95%",
         updateTime = 0,
-        updateEvent = "gmcp.Char.player",
+        updateEvent = "PRSState.Char.player",
         textTemplate = "Combo: |c",
-        currentVariable = "gmcp.Char.player.combo",
-        maxVariable = "gmcp.Char.player.maxCombo"
+        currentVariable = "PRSState.Char.player.combo",
+        maxVariable = "PRSState.Char.player.maxCombo"
     }, GUI.tabwindow2.Combatcenter)
     CPbar.front:setStyleSheet([[background-color: #e74856;
         border-top: 1px black solid;
@@ -1350,7 +1350,7 @@ local function add_gauges()
         height = 25,
         width = "95%",
         updateTime = 0,
-        updateEvent = "gmcp.Char.player",
+        updateEvent = "PRSState.Char.player",
         textTemplate = "Hero"
     }, GUI.tabwindow1.Vitalscenter)
     XPbar.front:setStyleSheet([[background-color: #70c0e8;
@@ -1376,11 +1376,11 @@ local function add_gauges()
         padding-left: 5px;
       ]])
 
-    if gmcp.Char.player.xpForNextLevel then
+    if PRSState.Char.player.xpForNextLevel then
 
         PRSstats.xp = PRSstats.xp or {}
-        PRSstats.xp.current = gmcp.Char.player.xp - gmcp.Char.player.xpForCurrentLevel
-        PRSstats.xp.tnl = gmcp.Char.player.xpForNextLevel - gmcp.Char.player.xpForCurrentLevel
+        PRSstats.xp.current = PRSState.Char.player.xp - PRSState.Char.player.xpForCurrentLevel
+        PRSstats.xp.tnl = PRSState.Char.player.xpForNextLevel - PRSState.Char.player.xpForCurrentLevel
 
         XPbar = SUG:new({
             name = "XP",
@@ -1388,7 +1388,7 @@ local function add_gauges()
             height = 25,
             width = "95%",
             updateTime = 0,
-            updateEvent = "gmcp.Char.player",
+            updateEvent = "PRSState.Char.player",
             textTemplate = "XP: |c / |m   (|p%)",
             currentVariable = "PRSstats.xp.current",
             maxVariable = "PRSstats.xp.tnl"
@@ -1416,38 +1416,38 @@ local function add_gauges()
         if PRSstats.events.xp_id then
             killAnonymousEventHandler(PRSstats.events.xp_id)
         end
-        PRSstats.events.xp_id = registerAnonymousEventHandler("gmcp.Char.player.xp", function()
-            PRSstats.xp.current = gmcp.Char.player.xp - gmcp.Char.player.xpForCurrentLevel
+        PRSstats.events.xp_id = registerAnonymousEventHandler("PRSState.Char.player.xp", function()
+            PRSstats.xp.current = PRSState.Char.player.xp - PRSState.Char.player.xpForCurrentLevel
         end)
 
         if PRSstats.events.xpForCurrentLevel_id then
             killAnonymousEventHandler(PRSstats.events.xpForCurrentLevel_id)
         end
-        PRSstats.events.xpForCurrentLevel_id = registerAnonymousEventHandler("gmcp.Char.player.xpForCurrentLevel",
+        PRSstats.events.xpForCurrentLevel_id = registerAnonymousEventHandler("PRSState.Char.player.xpForCurrentLevel",
             function()
-                PRSstats.xp.current = gmcp.Char.player.xp - gmcp.Char.player.xpForCurrentLevel
-                PRSstats.xp.tnl = gmcp.Char.player.xpForNextLevel - gmcp.Char.player.xpForCurrentLevel
+                PRSstats.xp.current = PRSState.Char.player.xp - PRSState.Char.player.xpForCurrentLevel
+                PRSstats.xp.tnl = PRSState.Char.player.xpForNextLevel - PRSState.Char.player.xpForCurrentLevel
             end)
 
         if PRSstats.events.xpForNextLevel_id then
             killAnonymousEventHandler(PRSstats.events.xpForNextLevel_id)
         end
-        PRSstats.events.xpForNextLevel_id = registerAnonymousEventHandler("gmcp.Char.player.xpForNextLevel", function()
-            if gmcp.Char.player.xpForNextLevel then
-                PRSstats.xp.tnl = gmcp.Char.player.xpForNextLevel - gmcp.Char.player.xpForCurrentLevel
+        PRSstats.events.xpForNextLevel_id = registerAnonymousEventHandler("PRSState.Char.player.xpForNextLevel", function()
+            if PRSState.Char.player.xpForNextLevel then
+                PRSstats.xp.tnl = PRSState.Char.player.xpForNextLevel - PRSState.Char.player.xpForCurrentLevel
             end
         end)
     end
 end
 
 function PRSstats.stats()
-    if gmcp and gmcp.Char and gmcp.Char.player then
+    if PRSState and PRSState.Char and PRSState.Char.player then
         vitalsHeader()
         statsTab()
         add_gauges()
     else
-        local initialize_ev_handler = registerAnonymousEventHandler("gmcp.Char.player", function()
-            if gmcp and gmcp.Char and gmcp.Char.player and gmcp.Char.player.name then
+        local initialize_ev_handler = registerAnonymousEventHandler("PRSState.Char.player", function()
+            if PRSState and PRSState.Char and PRSState.Char.player and PRSState.Char.player.name then
                 vitalsHeader()
                 statsTab()
                 add_gauges()

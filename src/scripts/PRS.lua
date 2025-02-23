@@ -7,7 +7,7 @@ if table.contains(getPackages(), "generic_mapper") then
     uninstallPackage("generic_mapper")
 end
 
-registerAnonymousEventHandler("gmcp.Char.player", function()
+registerAnonymousEventHandler("PRSState.Char.player", function()
     PRSstats.stats()
 end, true)
 

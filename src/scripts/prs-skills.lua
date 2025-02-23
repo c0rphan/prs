@@ -147,9 +147,9 @@ function addGaugeToSkillLabel(skillNum, skills, labels, color)
         height = 15,
         width = "100%", -- everything up to here is standard Geyser.Gauge
         updateTime = 0,
-        updateEvent = "gmcp.Char.skills",
+        updateEvent = "PRSState.Char.skills",
         textTemplate = "|p%",
-        currentVariable = "gmcp.Char.skills[" .. skill.gmcpIndex .. "].tnl", -- if it is nil or unreachable, it will use the defaultCurrent of 50
+        currentVariable = "PRSState.Char.skills[" .. skill.gmcpIndex .. "].tnl", -- if it is nil or unreachable, it will use the defaultCurrent of 50
         maxVariable = 100
     }, labels[skillNum])
     labels[skillNum].progressBar.front:setStyleSheet(string.format([[background-color: %s;
@@ -175,7 +175,7 @@ function getSkillString(skill)
 end
 
 function createSkills()
-    local sortedSkills = sortSkills(gmcp.Char.skills)
+    local sortedSkills = sortSkills(PRSState.Char.skills)
 
     local currentY = 0
     for i, skill in ipairs(sortedSkills) do
@@ -196,7 +196,7 @@ function createSkills()
 end
 
 function skillEventHandler()
-    if (gmcp and gmcp.Char and gmcp.Char.skills and #gmcp.Char.skills ~= PRSskills.previousSkillCount) then
+    if (PRSState and PRSState.Char and PRSState.Char.skills and #PRSState.Char.skills ~= PRSskills.previousSkillCount) then
         createSkills()
     end
 end
@@ -204,4 +204,4 @@ end
 if skillEventHandlerId then
     killAnonymousEventHandler(skillEventHandlerId)
 end -- clean up any already registered handlers for this function
-skillEventHandlerId = registerAnonymousEventHandler("gmcp.Char.skills", skillEventHandler)
+skillEventHandlerId = registerAnonymousEventHandler("PRSState.Char.skills", skillEventHandler)

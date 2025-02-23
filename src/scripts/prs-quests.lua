@@ -8,11 +8,11 @@ local QUEST_LABEL_HEIGHT = 65
 local QUEST_GAP = 0
 
 function displayAllQuests()
-  for i, quest in ipairs(gmcp.Char.quests) do
+  for i, quest in ipairs(PRSState.Char.quests) do
     displayQuest(i)
   end
   
-  for n=#gmcp.Char.quests+1, #questContainerTable, 1 do
+  for n=#PRSState.Char.quests+1, #questContainerTable, 1 do
     questContainerTable[n]:hide()
     questBox:remove(questContainerTable[n])
   end
@@ -35,7 +35,7 @@ questBox = questBox or Geyser.ScrollBox:new({
 }, scrollContainer)
 
 function displayQuest(questNum)
-  local quest = gmcp.Char.quests[questNum]
+  local quest = PRSState.Char.quests[questNum]
   
   createNewQuestLabel(questNum)
   
@@ -76,7 +76,7 @@ function createNewQuestLabel(questNum)
 end
 
 function addGaugeToQuestLabel(questNum)
-  local quest = gmcp.Char.quests[questNum]
+  local quest = PRSState.Char.quests[questNum]
 
   -- box that holds the gauge and the label
   questContainerTable[questNum].progressBox = questContainerTable[questNum].progressBox or Geyser.HBox:new({
@@ -159,4 +159,4 @@ end
 if questEventHandlerId then
     killAnonymousEventHandler(questEventHandlerId)
 end -- clean up any already registered handlers for this function
-questEventHandlerId = registerAnonymousEventHandler("gmcp.Char.quests", questEventHandler)
+questEventHandlerId = registerAnonymousEventHandler("PRSState.Char.quests", questEventHandler)

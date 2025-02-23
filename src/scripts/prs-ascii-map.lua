@@ -102,4 +102,4 @@ map_handler_id = registerAnonymousEventHandler("gmcp.Char.Output", mapEventHandl
 if send_command_handler_id then
     killAnonymousEventHandler(send_command_handler_id)
 end
-send_command_handler_id = registerAnonymousEventHandler("gmcp.Char.room", sendMapCommand)
+send_command_handler_id = registerAnonymousEventHandler("PRSState.Char.room", sendMapCommand)

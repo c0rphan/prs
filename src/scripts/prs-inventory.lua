@@ -17,8 +17,8 @@ end
 PRSinv.currentInventoryIndex = 1
 
 PRSinv.getNextInventoryItem = function()
-    if PRSinv.currentInventoryIndex <= #gmcp.Char.inventory then
-        local iid = gmcp.Char.inventory[PRSinv.currentInventoryIndex]
+    if PRSinv.currentInventoryIndex <= #PRSState.Char.inventory then
+        local iid = PRSState.Char.inventory[PRSinv.currentInventoryIndex]
         if not PRSinv.inventoryTable[iid] then
             -- echo("Getting inventory item " .. PRSinv.currentInventoryIndex .. "/" .. #gmcp.Char.inventory .. "\n")
             PRSinv.gmcpGetItem(iid)
@@ -52,7 +52,7 @@ end
 PRSinv.labels = PRSinv.labels or {}
 
 PRSinv.displayAllInventory = function()
-    for i, iid in ipairs(gmcp.Char.inventory) do
+    for i, iid in ipairs(PRSState.Char.inventory) do
         PRSinv.displayItem(i, iid)
     end
 end
@@ -98,4 +98,4 @@ PRSinv.invEventHandler = registerAnonymousEventHandler("gmcp.Item", PRSinv.gmcpS
 if PRSinv.getInvEventHandler then
     killAnonymousEventHandler(PRSinv.getInvEventHandler)
 end -- clean up any already registered handlers for this function
-PRSinv.getInvEventHandler = registerAnonymousEventHandler("gmcp.Char.inventory", PRSinv.getAllInventoryData)
+PRSinv.getInvEventHandler = registerAnonymousEventHandler("PRSState.Char.inventory", PRSinv.getAllInventoryData)

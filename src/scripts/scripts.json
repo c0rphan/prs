@@ -37,5 +37,8 @@
   },
   {
     "name": "prs-stats"
+  },
+  {
+    "name": "prs_state_dispatcher"
   }
 ]

@@ -782,12 +782,12 @@ end
 function map.speedwalk(roomID, walkPath, walkDirs)
     roomID = roomID or speedWalkPath[#speedWalkPath]
     local areas = getAreaTable()
-    local area_id = areas[gmcp.Char.room.area]
+    local area_id = areas[PRSState.Char.room.area]
     if area_id == nil then
         echo("Error: could not identify the current area.\n")
         return
     end
-    local current_room_id = get_room_id_by_coordinates(gmcp.Char.room.area, gmcp.Char.room.x, -gmcp.Char.room.y, 0)
+    local current_room_id = get_room_id_by_coordinates(PRSState.Char.room.area, PRSState.Char.room.x, -PRSState.Char.room.y, 0)
     if current_room_id == nil then
         echo("Error: could not find the current room in the map.\n")
         return
@@ -901,13 +901,13 @@ map.events.connect_id = registerAnonymousEventHandler("sysConnectionEvent", "map
 if map.events.centering_id then
     killAnonymousEventHandler(map.events.centering_id)
 end -- clean up any already registered handlers for this function
-map.events.centering_id = registerAnonymousEventHandler("gmcp.Char.room", function(event, args)
+map.events.centering_id = registerAnonymousEventHandler("PRSState.Char.room", function(event, args)
 
-    if gmcp.Char.room.area == "Battlefield" then
+    if PRSState.Char.room.area == "Battlefield" then
         return
     end
 
-    local room_id = get_room_id_by_coordinates(gmcp.Char.room.area, gmcp.Char.room.x, -gmcp.Char.room.y, 0)
+    local room_id = get_room_id_by_coordinates(PRSState.Char.room.area, PRSState.Char.room.x, -PRSState.Char.room.y, 0)
     if room_id ~= nil then
         centerview(room_id)
     end
