@@ -28,100 +28,67 @@ function getAttribute(path)
 end
 
 function prs_state_dispatcher()
-  raiseChar = false
-  raisePlayer = false
-  raiseSkills = false
-  raiseRoom = false
-  raiseInventory = false
+  raisedEvents = {}
+  handledEvents = {}
   for _, patch in ipairs(gmcp.State.Patch) do
-    if string.find(patch.path, "^/quests/") then
-      raiseChar = true
-      slot = getAttribute(patch.path) + 1
-      if patch.op == "add" then
-        PRSState.Char.quests[slot] = patch.value
+    table.insert(handledEvents, (string.gsub(string.sub(patch.path, 2), "/", ".")))
+    local segments = {}
+    local k = nil
+    for key in string.gmatch(patch.path, "([^/]+)") do
+      k = key
+      table.insert(segments, k)
+    end
+    if tonumber(k) then
+      k = k + 1
+    end
+    if #segments == 1 then
+      if patch.op == "replace" then
+        PRSState.Char[k] = patch.value
       elseif patch.op == "remove" then
-        table.remove(PRSState.Char.quests, slot)
-      end
-      raiseEvent("PRSState.Char.quests")
-    elseif string.find(patch.path, "^/player/") then
-      raisePlayer = true
-      attr = getAttribute(patch.path)
-      if patch.op == "add" or patch.op == "replace" then
-        PRSState.Char.player[attr] = patch.value
-      elseif patch.op == "remove" then
-        PRSState.Char.player[attr] = nil
-      end
-      raiseEvent("PRSState.Char.player." .. attr)
-    elseif string.find(patch.path, "^/skills/") then
-      raiseSkills = true
-      skill = getAttribute(patch.path)
-      if patch.op == "add" then
-        table.insert(PRSState.Char.skills, patch.value)
-      elseif patch.op == "replace" then
-        for i=1,#PRSState.Char.skills do
-          if PRSState.Char.skills[i].name == patch.value.name then
-            PRSState.Char.skills[i] = patch.value
-            break
-          end
-        end
-      elseif patch.op == "remove" then
-        found = nil
-        for i=1,#PRSState.Char.skills do
-          if PRSState.Char.skills[i].name == patch.value.name then
-            found = i
-            break
-          end
-        end
-        if found ~= nil then
-          table.remove(i)
+        PRSState.Char[k] = nil
+      elseif patch.op == "add" then
+        if tonumber(k) then
+          table.insert(PRSState.Char, k, patch.value)
+        else
+          PRSState.Char[k] = patch.value
         end
       end
-      raiseEvent("PRSState.Char.skills." .. skill)
-    elseif string.find(patch.path, "^/room/") then
-      raiseRoom = true
-      if pathIsList(patch.path) then -- attr is part of list
-        attr, slot = getAttributeAndIndex(patch.path)
-        PRSState.Char.room[attr] = PRSState.Char.room[attr] or {}
-        if patch.op == "add" or patch.op == "replace" then
-          PRSState.Char.room[attr][slot] = patch.value
-        elseif patch.op == "remove" then
-          table.remove(PRSState.Char.room[attr], slot)
+    elseif #segments > 1 then
+      local target = PRSState.Char
+      local tk = nil
+      for i=1,#segments-1 do
+        tk = segments[i]
+        if target[tk] == nil then
+          target[tk] = {}
         end
-        raiseEvent("PRSState.Char.room." .. attr)
-      else -- not a list
-        attr = getAttribute(patch.path)
-        if patch.op == "add" or patch.op == "replace" then
-          PRSState.Char.room[attr] = patch.value
-        elseif patch.op == "remove" then
-          PRSState.Char.room[attr] = nil
-        end
-        raiseEvent("PRSState.Char.room." .. attr)
+        target = target[tk]
       end
-    elseif string.find(patch.path, "^/inventory") then
-      raiseInventory = true
-      slot = getAttribute(patch.path) + 1
-      if patch.op == "add" or patch.op == "replace" then
-        PRSState.Char.inventory[slot] = patch.value
+      if patch.op == "replace" then
+        target[k] = patch.value
       elseif patch.op == "remove" then
-        table.remove(PRSState.Char.inventory, slot)
+        if tonumber(k) then
+          table.remove(target, k)
+        else
+          target[k] = nil
+        end
+      elseif patch.op == "add" then
+        if tonumber(k) then
+          table.insert(target, k, patch.value)
+        else
+          target[k] = patch.value
+        end
       end
     end
   end
-  raiseEvent("PRSState")
-  if raiseChar or raisePlayer or raiseSkills or raiseRoom or raiseInventory then
-    raiseEvent("PRSState.Char")
-  end
-  if raisePlayer then
-    raiseEvent("PRSState.Char.player")
-  end
-  if raiseSkills then
-    raiseEvent("PRSState.Char.skills")
-  end
-  if raiseRoom then
-    raiseEvent("PRSState.Char.room")
-  end
-  if raiseInventory then
-    raiseEvent("PRSState.Char.inventory")
+  for _, event in ipairs(handledEvents) do
+    local eventToRaise = "PRSState.Char"
+    for subEvent in string.gmatch(event, "([^.]+)") do
+      eventToRaise = eventToRaise ..".".. subEvent
+      if raisedEvents[eventToRaise] == nil and tonumber(subEvent) == nil then
+        raisedEvents[eventToRaise] = {1}
+        raiseEvent(eventToRaise)
+      end
+    end
   end
 end
 

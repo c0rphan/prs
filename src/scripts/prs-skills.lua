@@ -149,7 +149,7 @@ function addGaugeToSkillLabel(skillNum, skills, labels, color)
         updateTime = 0,
         updateEvent = "PRSState.Char.skills",
         textTemplate = "|p%",
-        currentVariable = "PRSState.Char.skills[" .. skill.gmcpIndex .. "].tnl", -- if it is nil or unreachable, it will use the defaultCurrent of 50
+        currentVariable = "PRSskills.skillList[" .. skill.gmcpIndex .. "].tnl", -- if it is nil or unreachable, it will use the defaultCurrent of 50
         maxVariable = 100
     }, labels[skillNum])
     labels[skillNum].progressBar.front:setStyleSheet(string.format([[background-color: %s;
@@ -175,7 +175,7 @@ function getSkillString(skill)
 end
 
 function createSkills()
-    local sortedSkills = sortSkills(PRSState.Char.skills)
+    local sortedSkills = sortSkills(PRSskills.skillList)
 
     local currentY = 0
     for i, skill in ipairs(sortedSkills) do
@@ -196,8 +196,14 @@ function createSkills()
 end
 
 function skillEventHandler()
-    if (PRSState and PRSState.Char and PRSState.Char.skills and #PRSState.Char.skills ~= PRSskills.previousSkillCount) then
-        createSkills()
+    PRSskills.skillList = {}
+    if (PRSState and PRSState.Char and PRSState.Char.skills) then
+        for _, skill in pairs(PRSState.Char.skills) do
+            table.insert(PRSskills.skillList, skill)
+        end
+        if(#PRSskills.skillList ~= PRSskills.previousSkillCount) then
+            createSkills()
+        end
     end
 end
 
