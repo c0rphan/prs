@@ -49,6 +49,9 @@ function updateBattle()
 end
 
 function organizeAllBattle()
+    if not gmcp or not gmcp.Char or not gmcp.Char.battle or not gmcp.Char.battle.participant then
+        return
+    end
     local participants = gmcp.Char.battle.participants
     local good = {}
     local evil = {}

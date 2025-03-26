@@ -14,22 +14,17 @@ PRSinv.gmcpGetItem = function(id)
     send("gmcp item " .. id, false)
 end
 
-PRSinv.currentInventoryIndex = 1
-
-PRSinv.getNextInventoryItem = function()
-    if PRSinv.currentInventoryIndex <= #PRSState.Char.inventory then
-        local iid = PRSState.Char.inventory[PRSinv.currentInventoryIndex]
+PRSinv.getAllInventoryItems = function()
+    local ids = {}
+    for i = 1, #PRSState.Char.inventory, 1 do
+        local iid = PRSState.Char.inventory[i]
         if not PRSinv.inventoryTable[iid] then
             -- echo("Getting inventory item " .. PRSinv.currentInventoryIndex .. "/" .. #gmcp.Char.inventory .. "\n")
-            PRSinv.gmcpGetItem(iid)
-            PRSinv.currentInventoryIndex = PRSinv.currentInventoryIndex + 1
-        else
-            -- echo("Already got " .. PRSinv.currentInventoryIndex .. "/" .. #gmcp.Char.inventory .. "\n")
-            PRSinv.currentInventoryIndex = PRSinv.currentInventoryIndex + 1
-            PRSinv.getNextInventoryItem()
+            table.insert(ids, iid)
         end
-    else
-        PRSinv.displayAllInventory()
+    end
+    if #ids > 0 then
+        send("gmcp item " .. table.concat(ids, ","), false)
     end
 end
 
@@ -41,12 +36,11 @@ PRSinv.gmcpStoreItemData = function()
 
     PRSinv.inventoryTable[gmcp.Item.Info.iid] = PRSutil.tableCopy(gmcp.Item, nil)
     -- echo("Stored: " .. gmcp.Item.Info.iid .. "\n")
-    PRSinv.getNextInventoryItem()
+    PRSinv.displayAllInventory()
 end
 
 PRSinv.getAllInventoryData = function()
-    PRSinv.currentInventoryIndex = 1
-    PRSinv.getNextInventoryItem()
+    PRSinv.getAllInventoryItems()
 end
 
 PRSinv.labels = PRSinv.labels or {}
