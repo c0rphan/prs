@@ -76,13 +76,17 @@ asciiMap.mapLabel = asciiMap.mapLabel or Geyser.Label:new({
 MAP_CMD_ID = 1
 GETTING_TOO_BIG_NUMBER = 1000000
 currentId = 0
+lastRoom = 0
 
 function sendMapCommand()
-    currentId = currentId + 1
-    if currentId > GETTING_TOO_BIG_NUMBER then
-        currentId = 1
+    if PRSState.Char.room.id ~= lastRoom then
+        currentId = currentId + 1
+        if currentId > GETTING_TOO_BIG_NUMBER then
+            currentId = 1
+        end    
+        lastRoom = PRSState.Char.room.id
+        send("gmcp cmd " .. MAP_CMD_ID .. currentId .. " map", false)
     end
-    send("gmcp cmd " .. MAP_CMD_ID .. currentId .. " map", false)
 end
 
 function mapEventHandler(event, args)

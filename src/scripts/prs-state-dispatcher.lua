@@ -47,7 +47,7 @@ function prs_state_dispatcher()
       elseif patch.op == "remove" then
         PRSState.Char[k] = nil
       elseif patch.op == "add" then
-        if tonumber(k) then
+        if tonumber(k) and k > #PRSState.Char then
           table.insert(PRSState.Char, k, patch.value)
         else
           PRSState.Char[k] = patch.value
@@ -72,7 +72,7 @@ function prs_state_dispatcher()
           target[k] = nil
         end
       elseif patch.op == "add" then
-        if tonumber(k) then
+        if tonumber(k) and k > #target then
           table.insert(target, k, patch.value)
         else
           target[k] = patch.value
@@ -97,4 +97,3 @@ if stateEventHandlerId then
 end
 
 stateEventHandlerId = registerAnonymousEventHandler("gmcp.State.Patch", prs_state_dispatcher, false)
-
