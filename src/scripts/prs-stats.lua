@@ -291,52 +291,52 @@ local function statsTab()
         name = "row6",
         width = "93%"
     }, statsVBox)
-    local resistPhysical = Geyser.Label:new({
-        name = "resistPhysical"
+    local strengthCriticalMultiplier = Geyser.Label:new({
+        name = "strengthCriticalMultiplier"
     }, row6)
-    resistPhysical:setColor(0, 0, 0, 0)
-    resistPhysical:setFontSize(8)
-    resistPhysical:echo(PRSState.Char.player.strengthResistBonus .. " ", "#c50f1f", "r")
-    if PRSstats.events.strengthResistBonusChange_id then
-        killAnonymousEventHandler(PRSstats.events.strengthResistBonusChange_id)
+    strengthCriticalMultiplier:setColor(0, 0, 0, 0)
+    strengthCriticalMultiplier:setFontSize(8)
+    strengthCriticalMultiplier:echo(PRSState.Char.player.strengthCriticalMultiplierBonus .. " ", "#c50f1f", "r")
+    if PRSstats.events.strengthCriticalMultiplierBonusChange_id then
+        killAnonymousEventHandler(PRSstats.events.strengthCriticalMultiplierBonusChange_id)
     end
-    PRSstats.events.strengthResistBonusChange_id = registerAnonymousEventHandler("PRSState.Char.player.strengthResistBonus",
-        function()
-            if PRSState.Char.player.strengthResistBonus then
-                resistPhysical:echo(PRSState.Char.player.strengthResistBonus .. " ", "#c50f1f", "r")
+    PRSstats.events.strengthCriticalMultiplierBonusChange_id =
+        registerAnonymousEventHandler("PRSState.Char.player.strengthCriticalMultiplierBonus", function()
+            if PRSState.Char.player.strengthCriticalMultiplierBonus then
+                strengthCriticalMultiplier:echo(PRSState.Char.player.strengthCriticalMultiplierBonus .. " ", "#c50f1f", "r")
             end
         end)
-    local resistPhysicalTitle = Geyser.Label:new({
-        name = "resistPhysicalTitle"
+    local strengthCriticalMultiplierTitle = Geyser.Label:new({
+        name = "strengthCriticalMultiplierTitle"
     }, row6)
-    resistPhysicalTitle:setColor(0, 0, 0, 0)
-    resistPhysicalTitle:setFontSize(8)
-    resistPhysicalTitle:echo("Resist Physical", "#aaaaaa", "l")
-    local resistMagic = Geyser.Label:new({
-        name = "resistMagic"
+    strengthCriticalMultiplierTitle:setColor(0, 0, 0, 0)
+    strengthCriticalMultiplierTitle:setFontSize(8)
+    strengthCriticalMultiplierTitle:echo("x Multiplier", "#aaaaaa", "l")
+    local magicFocus = Geyser.Label:new({
+        name = "magicFocusBonus"
     }, row6)
-    resistMagic:setColor(0, 0, 0, 0)
-    resistMagic:setFontSize(8)
-    resistMagic:echo(PRSState.Char.player.magicResistBonus .. " ", "#61d6d6", "r")
-    if PRSstats.events.magicResistBonusChange_id then
-        killAnonymousEventHandler(PRSstats.events.magicResistBonusChange_id)
+    magicFocus:setColor(0, 0, 0, 0)
+    magicFocus:setFontSize(8)
+    magicFocus:echo(PRSState.Char.player.magicFocusBonus .. " ", "#61d6d6", "r")
+    if PRSstats.events.magicFocusBonusChange_id then
+        killAnonymousEventHandler(PRSstats.events.magicFocusBonusChange_id)
     end
-    PRSstats.events.magicResistBonusChange_id = registerAnonymousEventHandler("PRSState.Char.player.magicResistBonus",
+    PRSstats.events.magicFocusBonusChange_id = registerAnonymousEventHandler("PRSState.Char.player.magicFocusBonus",
         function()
-            if PRSState.Char.player.magicResistBonus then
-                resistMagic:echo(PRSState.Char.player.magicResistBonus .. " ", "#61d6d6", "r")
+            if PRSState.Char.player.magicFocusBonus then
+                magicFocus:echo(PRSState.Char.player.magicFocusBonus .. " ", "#61d6d6", "r")
             end
         end)
-    local resistMagicTitle = Geyser.Label:new({
-        name = "resistMagicTitle"
+    local magicFocusTitle = Geyser.Label:new({
+        name = "magicFocusTitle"
     }, row6)
-    resistMagicTitle:setColor(0, 0, 0, 0)
-    resistMagicTitle:setFontSize(8)
-    resistMagicTitle:echo("Resist Magic", "#aaaaaa", "l")
-    --       local row7 = Geyser.HBox:new({
-    --           name = "row7",
-    --           width = "93%"
-    --           }, statsVBox)
+    magicFocusTitle:setColor(0, 0, 0, 0)
+    magicFocusTitle:setFontSize(8)
+    magicFocusTitle:echo("Focus", "#aaaaaa", "l")
+    local row7 = Geyser.HBox:new({
+              name = "row7",
+              width = "93%"
+              }, statsVBox)
     local row8 = Geyser.HBox:new({
         name = "row8",
         width = "93%"
@@ -498,27 +498,27 @@ local function statsTab()
     skillCooldownTitle:setColor(0, 0, 0, 0)
     skillCooldownTitle:setFontSize(8)
     skillCooldownTitle:echo("Skill Cooldown", "#aaaaaa", "l")
-    local spiritFocus = Geyser.Label:new({
-        name = "spiritFocus"
+    local spiritHealing = Geyser.Label:new({
+        name = "spiritHealing"
     }, row11)
-    spiritFocus:setColor(0, 0, 0, 0)
-    spiritFocus:setFontSize(8)
-    spiritFocus:echo(PRSState.Char.player.spiritFocusBonus .. " ", "#3b78ff", "r")
-    if PRSstats.events.spiritFocusBonusChange_id then
-        killAnonymousEventHandler(PRSstats.events.spiritFocusBonusChange_id)
+    spiritHealing:setColor(0, 0, 0, 0)
+    spiritHealing:setFontSize(8)
+    spiritHealing:echo(PRSState.Char.player.spiritHealingPowerBonus .. " ", "#3b78ff", "r")
+    if PRSstats.events.spiritHealingPowerBonusChange_id then
+        killAnonymousEventHandler(PRSstats.events.spiritHealingPowerBonusChange_id)
     end
-    PRSstats.events.spiritFocusBonusChange_id = registerAnonymousEventHandler("PRSState.Char.player.spiritFocusBonus",
+    PRSstats.events.spiritHealingPowerBonusChange_id = registerAnonymousEventHandler("PRSState.Char.player.spiritHealingPowerBonus",
         function()
-            if PRSState.Char.player.spiritFocusBonus then
-                spiritFocus:echo(PRSState.Char.player.spiritFocusBonus .. " ", "#3b78ff", "r")
+            if PRSState.Char.player.spiritHealingPowerBonus then
+                spiritHealing:echo(PRSState.Char.player.spiritHealingPowerBonus .. " ", "#3b78ff", "r")
             end
         end)
-    local spiritFocusTitle = Geyser.Label:new({
-        name = "spiritFocusTitle"
+    local spiritHealingTitle = Geyser.Label:new({
+        name = "spiritHealingTitle"
     }, row11)
-    spiritFocusTitle:setColor(0, 0, 0, 0)
-    spiritFocusTitle:setFontSize(8)
-    spiritFocusTitle:echo("Focus", "#aaaaaa", "l")
+    spiritHealingTitle:setColor(0, 0, 0, 0)
+    spiritHealingTitle:setFontSize(8)
+    spiritHealingTitle:echo("Healing", "#aaaaaa", "l")
     local row12 = Geyser.HBox:new({
         name = "row12",
         width = "93%"
@@ -570,48 +570,48 @@ local function statsTab()
         name = "row13",
         width = "93%"
     }, statsVBox)
-    local agilityCriticalMultiplier = Geyser.Label:new({
-        name = "agilityCriticalMultiplier"
+    local agilityMovement = Geyser.Label:new({
+      name = "agilityMovement"
     }, row13)
-    agilityCriticalMultiplier:setColor(0, 0, 0, 0)
-    agilityCriticalMultiplier:setFontSize(8)
-    agilityCriticalMultiplier:echo(PRSState.Char.player.agilityCriticalMultiplierBonus .. " ", "#c50f1f", "r")
-    if PRSstats.events.agilityCriticalMultiplierBonusChange_id then
-        killAnonymousEventHandler(PRSstats.events.agilityCriticalMultiplierBonusChange_id)
+    agilityMovement:setColor(0, 0, 0, 0)
+    agilityMovement:setFontSize(8)
+    agilityMovement:echo(PRSState.Char.player.agilityMovementBonus .. " ", "#ffff00", "r")
+    if PRSstats.events.agilityMovementBonusChange_id then
+        killAnonymousEventHandler(PRSstats.events.agilityMovementBonusChange_id)
     end
-    PRSstats.events.agilityCriticalMultiplierBonusChange_id =
-        registerAnonymousEventHandler("PRSState.Char.player.agilityCriticalMultiplierBonus", function()
-            if PRSState.Char.player.agilityCriticalMultiplierBonus then
-                agilityCriticalMultiplier:echo(PRSState.Char.player.agilityCriticalMultiplierBonus .. " ", "#c50f1f", "r")
-            end
+    PRSstats.events.agilityMovementBonusChange_id = registerAnonymousEventHandler("PRSState.Char.player.agilityMovementBonus",
+        function()
+          if PRSState.Char.player.agilityMovementBonus then
+              agilityMovement:echo(PRSState.Char.player.agilityMovementBonus .. " ", "#ffff00", "r")
+          end
         end)
-    local agilityCriticalMultiplierTitle = Geyser.Label:new({
-        name = "agilityCriticalMultiplierTitle"
+    local agilityMovementTitle = Geyser.Label:new({
+        name = "agilityMovementTitle"
     }, row13)
-    agilityCriticalMultiplierTitle:setColor(0, 0, 0, 0)
-    agilityCriticalMultiplierTitle:setFontSize(8)
-    agilityCriticalMultiplierTitle:echo("x Multiplier", "#aaaaaa", "l")
-    local spiritResist = Geyser.Label:new({
-        name = "spiritResist"
+    agilityMovementTitle:setColor(0, 0, 0, 0)
+    agilityMovementTitle:setFontSize(8)
+    agilityMovementTitle:echo("Movement", "#aaaaaa", "l")
+    local spiritSummoning = Geyser.Label:new({
+        name = "spiritSummoning"
     }, row13)
-    spiritResist:setColor(0, 0, 0, 0)
-    spiritResist:setFontSize(8)
-    spiritResist:echo(PRSState.Char.player.spiritResistBonus .. " ", "#13a10e", "r")
-    if PRSstats.events.spiritResistBonusChange_id then
-        killAnonymousEventHandler(PRSstats.events.spiritResistBonusChange_id)
+    spiritSummoning:setColor(0, 0, 0, 0)
+    spiritSummoning:setFontSize(8)
+    spiritSummoning:echo(PRSState.Char.player.spiritSummoningPowerBonus .. " ", "#13a10e", "r")
+    if PRSstats.events.spiritSummoningPowerBonusChange_id then
+        killAnonymousEventHandler(PRSstats.events.spiritSummoningPowerBonusChange_id)
     end
-    PRSstats.events.spiritResistBonusChange_id = registerAnonymousEventHandler("PRSState.Char.player.spiritResistBonus",
+    PRSstats.events.spiritSummoningPowerBonusChange_id = registerAnonymousEventHandler("PRSState.Char.player.spiritSummoningPowerBonus",
         function()
             if PRSState.Char.player.spiritResistBonus then
-                spiritResist:echo(PRSState.Char.player.spiritResistBonus .. " ", "#13a10e", "r")
+                spiritSummoning:echo(PRSState.Char.player.spiritSummoningPowerBonus .. " ", "#13a10e", "r")
             end
         end)
-    local spiritResistTitle = Geyser.Label:new({
-        name = "spiritResistTitle"
+    local spiritSummoningTitle = Geyser.Label:new({
+        name = "spiritSummoningTitle"
     }, row13)
-    spiritResistTitle:setColor(0, 0, 0, 0)
-    spiritResistTitle:setFontSize(8)
-    spiritResistTitle:echo("Resist Spirit", "#aaaaaa", "l")
+    spiritSummoningTitle:setColor(0, 0, 0, 0)
+    spiritSummoningTitle:setFontSize(8)
+    spiritSummoningTitle:echo("% Summoning", "#aaaaaa", "l")
     --        local row14 = Geyser.HBox:new({
     --            name = "row14",
     --            width = "93%"
@@ -714,14 +714,14 @@ local function statsTab()
     }, armorHBox)
     armorAbsorption:setColor(0, 0, 0, 0)
     armorAbsorption:setFontSize(8)
-    armorAbsorption:echo(PRSState.Char.player.armorAbsorption .. " absorb", "#f2f2f2", "l")
+    armorAbsorption:echo(string.format("%0.2f", PRSState.Char.player.armorAbsorption) .. " absorb", "#f2f2f2", "l")
     if PRSstats.events.armorAbsorptionChange_id then
         killAnonymousEventHandler(PRSstats.events.armorAbsorptionChange_id)
     end
     PRSstats.events.armorAbsorptionChange_id = registerAnonymousEventHandler("PRSState.Char.player.armorAbsorption",
         function()
             if PRSState.Char.player.armorAbsorption then
-                armorAbsorption:echo(PRSState.Char.player.armorAbsorption .. " absorb", "#f2f2f2", "l")
+                armorAbsorption:echo(string.format("%0.2f", PRSState.Char.player.armorAbsorption) .. " absorb", "#f2f2f2", "l")
             end
         end)
     -- Speed
@@ -875,13 +875,13 @@ local function statsTab()
     }, magicDamageHBox)
     magicCasting:setColor(0, 0, 0, 0)
     magicCasting:setFontSize(8)
-    magicCasting:echo("cast " .. string.format("%0.2f", PRSState.Char.player.castingTime) .. "s", "#61d6d6", "l")
+    magicCasting:echo("cast " .. string.format("%0.2f", PRSState.Char.player.spellCooldown) .. "s", "#61d6d6", "l")
     if PRSstats.events.magicCastingChange_id then
         killAnonymousEventHandler(PRSstats.events.magicCastingChange_id)
     end
-    PRSstats.events.magicCastingChange_id = registerAnonymousEventHandler("PRSState.Char.player.castingTime", function()
-        if PRSState.Char.player.castingTime then
-            magicCasting:echo("cast " .. string.format("%0.2f", PRSState.Char.player.castingTime) .. "s", "#61d6d6", "l")
+    PRSstats.events.magicCastingChange_id = registerAnonymousEventHandler("PRSState.Char.player.spellCooldown", function()
+        if PRSState.Char.player.spellCooldown then
+            magicCasting:echo("cast " .. string.format("%0.2f", PRSState.Char.player.spellCooldown) .. "s", "#61d6d6", "l")
         end
     end)
     -- Focus
@@ -914,15 +914,6 @@ local function statsTab()
     }, focusHBox)
     focusChance:setColor(0, 0, 0, 0)
     focusChance:setFontSize(8)
-    focusChance:echo(string.format("%0.2f", PRSState.Char.player.interruptChance) .. "%", "#3b78ff", "l")
-    if PRSstats.events.focusChanceChange_id then
-        killAnonymousEventHandler(PRSstats.events.focusChanceChange_id)
-    end
-    PRSstats.events.focusChanceChange_id = registerAnonymousEventHandler("PRSState.Char.player.interruptChance", function()
-        if PRSState.Char.player.interruptChance then
-            focusChance:echo(string.format("%0.2f", PRSState.Char.player.interruptChance) .. "%", "#3b78ff", "l")
-        end
-    end)
     local resistancesTitle = Geyser.Label:new({
         name = "resistancesTitle",
         height = 30

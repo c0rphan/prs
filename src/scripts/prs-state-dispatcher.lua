@@ -72,10 +72,10 @@ function prs_state_dispatcher()
           target[k] = nil
         end
       elseif patch.op == "add" then
-        if tonumber(k) and k > #target then
+        if tonumber(k) then
           table.insert(target, k, patch.value)
         else
-          target[k] = patch.value
+          table.insert(target, patch.value)
         end
       end
     end

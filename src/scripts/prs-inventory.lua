@@ -16,11 +16,19 @@ end
 
 PRSinv.getAllInventoryItems = function()
     local ids = {}
-    for i = 1, #PRSState.Char.inventory, 1 do
-        local iid = PRSState.Char.inventory[i]
-        if not PRSinv.inventoryTable[iid] then
-            -- echo("Getting inventory item " .. PRSinv.currentInventoryIndex .. "/" .. #gmcp.Char.inventory .. "\n")
-            table.insert(ids, iid)
+    PRSinv.inventoryTable = {}
+    for _, v in ipairs(PRSState.Char.inventory) do
+        local iid = v.iid
+        table.insert(ids, iid)
+    end
+    for k, v in pairs(PRSinv.inventoryTable) do
+        if not table.contains(ids, k) then
+            PRSinv.inventoryTable[k] = nil
+        end
+    end
+    for i, v in ipairs(ids) do
+        if table.contains(PRSinv.inventoryTable, v) then
+            ids[i] = nil
         end
     end
     if #ids > 0 then
@@ -33,7 +41,6 @@ PRSinv.gmcpStoreItemData = function()
         -- echo("Item not set...\n")
         return
     end
-
     PRSinv.inventoryTable[gmcp.Item.Info.iid] = PRSutil.tableCopy(gmcp.Item, nil)
     -- echo("Stored: " .. gmcp.Item.Info.iid .. "\n")
     PRSinv.displayAllInventory()
@@ -46,8 +53,15 @@ end
 PRSinv.labels = PRSinv.labels or {}
 
 PRSinv.displayAllInventory = function()
+    for i, v in ipairs(PRSinv.labels) do
+        if i > #PRSState.Char.inventory then
+            v:hide()
+        else
+            v:show()
+        end
+    end
     for i, iid in ipairs(PRSState.Char.inventory) do
-        PRSinv.displayItem(i, iid)
+        PRSinv.displayItem(i, iid.iid)
     end
 end
 
