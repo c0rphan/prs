@@ -16,23 +16,16 @@ end
 
 PRSinv.getAllInventoryItems = function()
     local ids = {}
-    PRSinv.inventoryTable = {}
     for _, v in ipairs(PRSState.Char.inventory) do
         local iid = v.iid
-        table.insert(ids, iid)
-    end
-    for k, v in pairs(PRSinv.inventoryTable) do
-        if not table.contains(ids, k) then
-            PRSinv.inventoryTable[k] = nil
-        end
-    end
-    for i, v in ipairs(ids) do
-        if table.contains(PRSinv.inventoryTable, v) then
-            ids[i] = nil
+        if not table.contains(PRSinv.inventoryTable, iid) then
+            table.insert(ids, iid)
         end
     end
     if #ids > 0 then
         send("gmcp item " .. table.concat(ids, ","), false)
+    else
+        PRSinv.displayAllInventory()
     end
 end
 

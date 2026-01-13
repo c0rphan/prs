@@ -74,8 +74,11 @@ function prs_state_dispatcher()
       elseif patch.op == "add" then
         if tonumber(k) then
           table.insert(target, k, patch.value)
+          if string.starts(patch.path, "/inventory") then
+              PRSinv.gmcpGetItem(patch.value.iid)
+          end
         else
-          table.insert(target, patch.value)
+          target[k] = patch.value
         end
       end
     end
