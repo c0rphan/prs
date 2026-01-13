@@ -75,7 +75,7 @@ function prs_state_dispatcher()
         if tonumber(k) then
           table.insert(target, k, patch.value)
         else
-          target[k] = patch.value
+          table.insert(target, patch.value)
         end
       end
     end
