@@ -18,14 +18,10 @@ PRSinv.getAllInventoryItems = function()
     local ids = {}
     for _, v in ipairs(PRSState.Char.inventory) do
         local iid = v.iid
-        if not table.contains(PRSinv.inventoryTable, iid) then
-            table.insert(ids, iid)
-        end
+        table.insert(ids, iid)
     end
     if #ids > 0 then
         send("gmcp item " .. table.concat(ids, ","), false)
-    else
-        PRSinv.displayAllInventory()
     end
 end
 
@@ -53,15 +49,16 @@ PRSinv.displayAllInventory = function()
             v:show()
         end
     end
-    for i, iid in ipairs(PRSState.Char.inventory) do
-        PRSinv.displayItem(i, iid.iid)
+    
+    for i, item in ipairs(PRSState.Char.inventory) do
+        PRSinv.displayItem(i, item)
     end
 end
 
 PRSinv.labelHeight = 20
 PRSinv.labelGapHeight = 0
 
-PRSinv.displayItem = function(i, iid)
+PRSinv.displayItem = function(i, item)
     local y = (i - 1) * (PRSinv.labelGapHeight + PRSinv.labelHeight)
     PRSinv.labels[i] = PRSinv.labels[i] or Geyser.Label:new({
         name = "invLabel" .. i,
@@ -84,10 +81,8 @@ PRSinv.displayItem = function(i, iid)
     -- label:onRightClick(event)
     -- end)
 
-    local item = PRSinv.inventoryTable[iid]
     if item then
-        label:hecho("L" .. item.Info.level .. " " .. item.Info.amount .. "x " ..
-                        PRSutil.getHechoColor(item.Info.colorName))
+        label:hecho(PRSutil.getHechoColor(item.name))
     end
 end
 
@@ -99,4 +94,4 @@ PRSinv.invEventHandler = registerAnonymousEventHandler("gmcp.Item", PRSinv.gmcpS
 if PRSinv.getInvEventHandler then
     killAnonymousEventHandler(PRSinv.getInvEventHandler)
 end -- clean up any already registered handlers for this function
-PRSinv.getInvEventHandler = registerAnonymousEventHandler("PRSState.Char.inventory", PRSinv.getAllInventoryData)
+PRSinv.getInvEventHandler = registerAnonymousEventHandler("PRSState.Char.inventory", PRSinv.displayAllInventory)

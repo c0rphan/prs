@@ -40,5 +40,8 @@
   },
   {
     "name": "prs-state-dispatcher"
+  },
+  {
+    "name": "jsonpatch"
   }
 ]
