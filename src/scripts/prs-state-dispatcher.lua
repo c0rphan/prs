@@ -6,6 +6,19 @@ PRSState.Char.skills = PRSState.Char.skills or {}
 PRSState.Char.room = PRSState.Char.room or {}
 PRSState.Char.inventory = PRSState.Char.inventory or {}
 PRSState.Char.radials = PRSState.Char.radials or {}
+PRSState.Char.slots = PRSState.Char.slots or {}
+PRSState.Char.sidemap = PRSState.Char.sidemap or {}
+PRSState.Char.minimap = PRSState.Char.minimap or {}
+PRSState.Char.room = PRSState.Char.room or {}
+PRSState.Char.room.entities = PRSState.Char.room.entities or {}
+PRSState.Char.room.exits = PRSState.Char.room.exits or {}
+PRSState.Char.room.items = PRSState.Char.room.items or {}
+PRSState.Char.aliases = PRSState.Char.aliases or {}
+PRSState.Char.equipment = PRSState.Char.equipment or {}
+PRSState.Char.channels = PRSState.Char.channels or {}
+PRSState.Char.charmies = PRSState.Char.charmies or {}
+PRSState.Char.party = PRSState.Char.party or {}
+PRSState.Char.battle = PRSState.Char.battle or {}
 
 function prs_state_dispatcher()
   local raisedEvents = {}
@@ -15,7 +28,7 @@ function prs_state_dispatcher()
   end
   local new_obj, patches, err = JSONpatch.apply(PRSState.Char, gmcp.State.Patch)
   if err ~= nil then
-    echo(err)
+    debugc(string.format("%s", err))
   else
     PRSState.Char = new_obj
   end
