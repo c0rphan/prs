@@ -1148,6 +1148,13 @@ local function statsTab()
     end)
 end
 
+local function gaugeUpdate(gauge, curVal, maxVal)
+    if curVal > maxVal then
+      maxVal = curVal
+    end
+    return curVal, maxval
+end
+
 local function add_gauges()
     -- Hit Points Gauge
     HPbar = SUG:new({
@@ -1159,7 +1166,8 @@ local function add_gauges()
         updateEvent = "PRSState.Char.player",
         textTemplate = "HP: |c / |m  (|p%)", -- gauge will show "HP: 500/1000 (50%)" as the text if you had 500 current and 1000 max hp
         currentVariable = "PRSState.Char.player.hp", -- if gmcp.Char.Vitals.hp is nil or unreachable, it will use the defaultCurrent of 50
-        maxVariable = "PRSState.Char.player.maxHp" -- if gmcp.Char.Vitals.maxhp is nil or unreachable, it will use the defaultMax of 100
+        maxVariable = "PRSState.Char.player.maxHp", -- if gmcp.Char.Vitals.maxhp is nil or unreachable, it will use the defaultMax of 100
+        updateHook = "gaugeUpdate"
     }, GUI.tabwindow1.Vitalscenter)
     HPbar.front:setStyleSheet([[background-color: #63e2b7;
       border-top: 1px black solid;
@@ -1191,7 +1199,8 @@ local function add_gauges()
         updateEvent = "PRSState.Char.player",
         textTemplate = "EN: |c / |m  (|p%)",
         currentVariable = "PRSState.Char.player.energy",
-        maxVariable = "PRSState.Char.player.maxEnergy"
+        maxVariable = "PRSState.Char.player.maxEnergy",
+        updateHook = "gaugeUpdate"
     }, GUI.tabwindow1.Vitalscenter)
     ENbar.front:setStyleSheet([[background-color: #cccccc;
       border-top: 1px black solid;
@@ -1223,7 +1232,8 @@ local function add_gauges()
         updateEvent = "PRSState.Char.player",
         textTemplate = "ST: |c / |m  (|p%)",
         currentVariable = "PRSState.Char.player.stamina",
-        maxVariable = "PRSState.Char.player.maxStamina"
+        maxVariable = "PRSState.Char.player.maxStamina",
+        updateHook = "gaugeUpdate"
     }, GUI.tabwindow1.Vitalscenter)
     STbar.front:setStyleSheet([[background-color: #f2c97d;
       border-top: 1px black solid;
@@ -1253,7 +1263,8 @@ local function add_gauges()
         updateEvent = "PRSState.Char.player",
         textTemplate = "Food: |c / |m  (|p%)",
         currentVariable = "PRSState.Char.player.food",
-        maxVariable = "PRSState.Char.player.maxFood"
+        maxVariable = "PRSState.Char.player.maxFood",
+        updateHook = "gaugeUpdate"
     }, GUI.tabwindow1.Vitalscenter)
     FPbar.front:setStyleSheet([[background-color: #63e2b7;
       border-top: 1px black solid;
@@ -1284,7 +1295,8 @@ local function add_gauges()
         updateEvent = "PRSState.Char.player",
         textTemplate = "Rage: |c",
         currentVariable = "PRSState.Char.player.rage",
-        maxVariable = "PRSState.Char.player.maxRage"
+        maxVariable = "PRSState.Char.player.maxRage",
+        updateHook = "gaugeUpdate"
     }, GUI.tabwindow2.Combatcenter)
     RPbar.front:setStyleSheet([[background-color: #e74856;
         border-top: 1px black solid;
@@ -1314,7 +1326,8 @@ local function add_gauges()
         updateEvent = "PRSState.Char.player",
         textTemplate = "Combo: |c",
         currentVariable = "PRSState.Char.player.combo",
-        maxVariable = "PRSState.Char.player.maxCombo"
+        maxVariable = "PRSState.Char.player.maxCombo",
+        updateHook = "gaugeUpdate"
     }, GUI.tabwindow2.Combatcenter)
     CPbar.front:setStyleSheet([[background-color: #e74856;
         border-top: 1px black solid;
@@ -1335,38 +1348,6 @@ local function add_gauges()
     ]])
 
     -- Experience Points Gauge
-    XPbar = SUG:new({
-        name = "XP",
-        y = 45,
-        height = 25,
-        width = "95%",
-        updateTime = 0,
-        updateEvent = "PRSState.Char.player",
-        textTemplate = "Hero"
-    }, GUI.tabwindow1.Vitalscenter)
-    XPbar.front:setStyleSheet([[background-color: #70c0e8;
-        border-top: 1px black solid;
-        border-left: 1px black solid;
-        border-bottom: 1px black solid;
-        border-radius: 10;
-        margin-right: 5px;
-        padding: 3px;
-        textTemplate = "Hero",
-        currentVariable = "PRSstats.xp.current",
-        maxVariable = "PRSstats.xp.current"
-      ]])
-    XPbar.back:setStyleSheet([[background-color: #70c0e8;
-        border-width: 0px;
-        border-color: black;
-        border-style: solid;
-        border-radius: 10;
-        margin-right: 5px;
-        padding: 3px;
-      ]])
-    XPbar.text:setStyleSheet([[
-        padding-left: 5px;
-      ]])
-
     if PRSState.Char.player.xpForNextLevel then
 
         PRSstats.xp = PRSstats.xp or {}
@@ -1382,7 +1363,8 @@ local function add_gauges()
             updateEvent = "PRSState.Char.player",
             textTemplate = "XP: |c / |m   (|p%)",
             currentVariable = "PRSstats.xp.current",
-            maxVariable = "PRSstats.xp.tnl"
+            maxVariable = "PRSstats.xp.tnl",
+        updateHook = "gaugeUpdate"
         }, GUI.tabwindow1.Vitalscenter)
         XPbar.front:setStyleSheet([[background-color: #70c0e8;
         border-top: 1px black solid;

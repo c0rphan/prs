@@ -196,7 +196,7 @@ _M.validate = function (patch)
         end
 
         if _M.verbose then
-            print("patch action:")
+            debugc("patch action:")
             display(p)
         end
 
@@ -252,6 +252,9 @@ local follow_path = function(arr,obj,exist)
                 if val == nil then
                     if exist then
                         return obj,"","Error, key should exist " .. key
+                    elseif i < #arr then
+                        obj[key] = {}
+                        obj = obj[key]
                     else
                         return obj,key,nil
                     end
@@ -344,7 +347,7 @@ _M.apply = function(obj,patches)
     -- execute all patches
     for num_patch,patch in ipairs(patches) do
         if patch.op == "replace" or patch.op == "rp" then
-            local err = do_op("replace",split_path(patch.path),obj_copy,patch.value,true)
+            local err = do_op("replace",split_path(patch.path),obj_copy,patch.value,false)
             if err  then
                 return obj, cpatches, err
             end
@@ -358,7 +361,7 @@ _M.apply = function(obj,patches)
         end
 
         if patch.op == "remove" or patch.op == "rm" then
-            local err = do_op("remove",split_path(patch.path),obj_copy,patch.value,true)
+            local err = do_op("remove",split_path(patch.path),obj_copy,patch.value,false)
             if err  then
                 return obj, cpatches, err
             end
@@ -540,7 +543,7 @@ _M.filter = function(filters,patches)
         for j,f in ipairs(filters) do
             local ok = f:match(p)
 
-            print(ok)
+            debugc(ok)
             display(p)
             if ok then
                 table.insert(filtered,p)
