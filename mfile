@@ -1,0 +1,10 @@
+{
+       "package": "TheProceduralRealmsScript",
+       "title": "The Procedural Realms Script",
+       "description": "The Procedural Realms Script [PRS] project gives Procedural Realms MUD players improved access to the advanced features of the Mudlet MUD client.",
+       "version": "1.9.0",
+       "author": "PRS",
+       "icon": "prs-logo.png",
+       "dependencies": "",
+       "outputFile": true
+}

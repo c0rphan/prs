@@ -3,7 +3,14 @@
 PRSstats = PRSstats or {}
 PRSstats.events = PRSstats.events or {}
 
-local SUG = require("PRS.sug")
+local SUG = require("__PKGNAME__.sug")
+
+-- Helper to safely get player stat with default
+local function p(field, default)
+    default = default or ""
+    local val = PRSState.Char.player[field]
+    return val ~= nil and val or default
+end
 
 local function vitalsHeader()
     local header = Geyser.HBox:new({
@@ -16,13 +23,15 @@ local function vitalsHeader()
     }, header)
     name:setFontSize(12)
     name:setColor(0, 0, 0, 0)
-    name:echo(PRSState.Char.player.name, "#f9f1a5", "l")
+    -- Name comes from gmcp.Char.Status (static data)
+    local charName = gmcp and gmcp.Char and gmcp.Char.Status and gmcp.Char.Status.name or ""
+    name:echo(charName, "#f9f1a5", "l")
     local class = Geyser.Label:new({
         name = "class"
     }, header)
     class:setFontSize(12)
     class:setColor(0, 0, 0, 0)
-    class:echo(PRSState.Char.player.class, "#b4009e", "c")
+    class:echo(PRSState.Char.player.class or "", "#b4009e", "c")
     if PRSstats.events.classChange_id then
         killAnonymousEventHandler(PRSstats.events.classChange_id)
     end
@@ -36,13 +45,15 @@ local function vitalsHeader()
     }, header)
     level:setFontSize(12)
     level:setColor(0, 0, 0, 0)
-    level:echo("Level " .. PRSState.Char.player.level, "#ababab", "r")
+    -- Level comes from gmcp.Char.Status (static data)
+    local charLevel = gmcp and gmcp.Char and gmcp.Char.Status and gmcp.Char.Status.level
+    level:echo(charLevel and ("Level " .. charLevel) or "", "#ababab", "r")
     if PRSstats.events.levelChange_id then
         killAnonymousEventHandler(PRSstats.events.levelChange_id)
     end
-    PRSstats.events.levelChange_id = registerAnonymousEventHandler("PRSState.Char.player.level", function()
-        if PRSState.Char.player.level then
-            level:echo("Level " .. PRSState.Char.player.level, "#ababab", "r")
+    PRSstats.events.levelChange_id = registerAnonymousEventHandler("gmcp.Char.Status", function()
+        if gmcp.Char.Status and gmcp.Char.Status.level then
+            level:echo("Level " .. gmcp.Char.Status.level, "#ababab", "r")
         end
     end)
 end
@@ -1413,18 +1424,29 @@ local function add_gauges()
     end
 end
 
+local function hasRequiredPlayerData()
+    local player = PRSState and PRSState.Char and PRSState.Char.player
+    -- Just check if player table has any data (State.Patch has been received)
+    return player and next(player) ~= nil
+end
+
 function PRSstats.stats()
-    if PRSState and PRSState.Char and PRSState.Char.player then
+    if hasRequiredPlayerData() then
         vitalsHeader()
         statsTab()
         add_gauges()
     else
-        local initialize_ev_handler = registerAnonymousEventHandler("PRSState.Char.player", function()
-            if PRSState and PRSState.Char and PRSState.Char.player and PRSState.Char.player.name then
+        if PRSstats.events.init_id then
+            killAnonymousEventHandler(PRSstats.events.init_id)
+        end
+        PRSstats.events.init_id = registerAnonymousEventHandler("PRSState.Char.player", function()
+            if hasRequiredPlayerData() then
+                killAnonymousEventHandler(PRSstats.events.init_id)
+                PRSstats.events.init_id = nil
                 vitalsHeader()
                 statsTab()
                 add_gauges()
             end
-        end, true)
+        end)
     end
 end

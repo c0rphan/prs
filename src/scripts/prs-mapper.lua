@@ -902,12 +902,16 @@ if map.events.centering_id then
     killAnonymousEventHandler(map.events.centering_id)
 end -- clean up any already registered handlers for this function
 map.events.centering_id = registerAnonymousEventHandler("PRSState.Char.room", function(event, args)
-
-    if PRSState.Char.room.area == "Battlefield" then
+    local room = PRSState.Char.room
+    if not room.area or not room.x or not room.y then
         return
     end
 
-    local room_id = get_room_id_by_coordinates(PRSState.Char.room.area, PRSState.Char.room.x, -PRSState.Char.room.y, 0)
+    if room.area == "Battlefield" then
+        return
+    end
+
+    local room_id = get_room_id_by_coordinates(room.area, room.x, -room.y, 0)
     if room_id ~= nil then
         centerview(room_id)
     end

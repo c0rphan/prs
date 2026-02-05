@@ -3,20 +3,20 @@
 GUI = GUI or {}
 
 -------[ Skin Mudlet Toolbar ]-----------------------------
-setAppStyleSheet([[
-QToolBar {
-  background-color: rgb(24,24,28);
-}
+-- setAppStyleSheet([[
+-- QToolBar {
+--   background-color: rgb(24,24,28);
+-- }
+--
+-- QToolBar QToolButton:!hover {
+--   color: white;
+-- }
+-- QToolBar QToolButton:hover {
+--   color: black;
+-- }
+-- ]])
 
-QToolBar QToolButton:!hover {
-  color: white;
-}
-QToolBar QToolButton:hover {
-  color: black;
-}
-]])
-
-require "PRS.AdjustableTabWindow" -- PR-specific version of edru's code
+require "__PKGNAME__.AdjustableTabWindow" -- PR-specific version of edru's code
 
 -------[ Spawn the Adjustable Containers ]-----------------------------
 GUI.top = Adjustable.Container:new({
@@ -24,14 +24,14 @@ GUI.top = Adjustable.Container:new({
     y = "0%",
     height = "10%",
     adjLabelstyle = "border: 1px solid green;",
-    defaultDir = string.format("%s/PRS/settings/", getMudletHomeDir())
+    defaultDir = string.format("%s/__PKGNAME__/settings/", getMudletHomeDir())
 })
 GUI.bottom = Adjustable.Container:new({
     name = "bottom",
     height = "10%",
     y = "-10%",
     adjLabelstyle = "border: 1px solid green;",
-    defaultDir = string.format("%s/PRS/settings/", getMudletHomeDir())
+    defaultDir = string.format("%s/__PKGNAME__/settings/", getMudletHomeDir())
 })
 GUI.right_top = Adjustable.Container:new({
     name = "right_top",
@@ -40,7 +40,7 @@ GUI.right_top = Adjustable.Container:new({
     height = "50%",
     width = "20%",
     adjLabelstyle = "border: 1px solid green;",
-    defaultDir = string.format("%s/PRS/settings/", getMudletHomeDir())
+    defaultDir = string.format("%s/__PKGNAME__/settings/", getMudletHomeDir())
 })
 
 GUI.right_bottom = Adjustable.Container:new({
@@ -50,7 +50,7 @@ GUI.right_bottom = Adjustable.Container:new({
     height = "50%",
     width = "20%",
     adjLabelstyle = "border: 1px solid green;",
-    defaultDir = string.format("%s/PRS/settings/", getMudletHomeDir())
+    defaultDir = string.format("%s/__PKGNAME__/settings/", getMudletHomeDir())
 })
 
 GUI.left_top = Adjustable.Container:new({
@@ -60,7 +60,7 @@ GUI.left_top = Adjustable.Container:new({
     height = "50%",
     width = "20%",
     adjLabelstyle = "border: 1px solid green;",
-    defaultDir = string.format("%s/PRS/settings/", getMudletHomeDir())
+    defaultDir = string.format("%s/__PKGNAME__/settings/", getMudletHomeDir())
 })
 
 GUI.left_bottom = Adjustable.Container:new({
@@ -70,10 +70,10 @@ GUI.left_bottom = Adjustable.Container:new({
     height = "50%",
     width = "20%",
     adjLabelstyle = "border: 1px solid green;",
-    defaultDir = string.format("%s/PRS/settings/", getMudletHomeDir())
+    defaultDir = string.format("%s/__PKGNAME__/settings/", getMudletHomeDir())
 })
 
-Adjustable.Container:doAll(function(self) -- add connect menu to all adjustable containers 
+Adjustable.Container:doAll(function(self) -- add connect menu to all adjustable containers
     self:addConnectMenu()
 end)
 
@@ -113,7 +113,7 @@ GUI.tabwindow1 = GUI.tabwindow1 or Adjustable.TabWindow:new({
     inactiveTabFGColor = "#555555",
     color1 = "rgb(24,24,28)",
     color2 = "rgb(16,16,20)",
-    tabs = {"Vitals", "Stats", "Skills"}
+    tabs = { "Vitals", "Stats", "Skills" }
 }, GUI.left_top)
 
 GUI.tabwindow2 = GUI.tabwindow2 or Adjustable.TabWindow:new({
@@ -127,7 +127,7 @@ GUI.tabwindow2 = GUI.tabwindow2 or Adjustable.TabWindow:new({
     inactiveTabFGColor = "#555555",
     color1 = "rgb(24,24,28)",
     color2 = "rgb(16,16,20)",
-    tabs = {"Combat", "Quests", "Inventory"}
+    tabs = { "Combat", "Quests", "Inventory" }
 }, GUI.left_bottom)
 
 GUI.tabwindow3 = GUI.tabwindow3 or Adjustable.TabWindow:new({
@@ -141,7 +141,7 @@ GUI.tabwindow3 = GUI.tabwindow3 or Adjustable.TabWindow:new({
     inactiveTabFGColor = "#555555",
     color1 = "rgb(24,24,28)",
     color2 = "rgb(16,16,20)",
-    tabs = {"Map", "AsciiMap", "Battle"}
+    tabs = { "Map", "AsciiMap", "Battle" }
 }, GUI.right_top)
 
 GUI.tabwindow4 = GUI.tabwindow4 or Adjustable.TabWindow:new({
@@ -172,7 +172,7 @@ local button1 = Geyser.Label:new({
 button1:setClickCallback("slot1")
 button1:setToolTip("[F1]", "10")
 button1:setStyleSheet([[
-    QLabel { 
+    QLabel {
     background-color: rgb(16,16,20);
     border: 1px solid black;
     border-radius: 3px;
@@ -181,7 +181,7 @@ button1:setStyleSheet([[
     background-color: rgb(24,24,28);
     border: 1px solid black;
     border-radius: 3px;
-    } 
+    }
 ]])
 function slot1()
     send("1")
@@ -194,7 +194,7 @@ local button2 = Geyser.Label:new({
 button2:setClickCallback("slot2")
 button2:setToolTip("[F2]", "10")
 button2:setStyleSheet([[
-    QLabel { 
+    QLabel {
     background-color: rgb(16,16,20);
     border: 1px solid black;
     border-radius: 3px;
@@ -203,7 +203,7 @@ button2:setStyleSheet([[
     background-color: rgb(24,24,28);
     border: 1px solid black;
     border-radius: 3px;
-    } 
+    }
 ]])
 function slot2()
     send("2")
@@ -216,7 +216,7 @@ local button3 = Geyser.Label:new({
 button3:setClickCallback("slot3")
 button3:setToolTip("[F3]", "10")
 button3:setStyleSheet([[
-    QLabel { 
+    QLabel {
     background-color: rgb(16,16,20);
     border: 1px solid black;
     border-radius: 3px;
@@ -225,7 +225,7 @@ button3:setStyleSheet([[
     background-color: rgb(24,24,28);
     border: 1px solid black;
     border-radius: 3px;
-    } 
+    }
 ]])
 function slot3()
     send("3")
@@ -238,7 +238,7 @@ local button4 = Geyser.Label:new({
 button4:setClickCallback("slot4")
 button4:setToolTip("[F4]", "10")
 button4:setStyleSheet([[
-    QLabel { 
+    QLabel {
     background-color: rgb(16,16,20);
     border: 1px solid black;
     border-radius: 3px;
@@ -247,7 +247,7 @@ button4:setStyleSheet([[
     background-color: rgb(24,24,28);
     border: 1px solid black;
     border-radius: 3px;
-    } 
+    }
 ]])
 function slot4()
     send("4")
@@ -260,7 +260,7 @@ local button5 = Geyser.Label:new({
 button5:setClickCallback("slot5")
 button5:setToolTip("[F5]", "10")
 button5:setStyleSheet([[
-    QLabel { 
+    QLabel {
     background-color: rgb(16,16,20);
     border: 1px solid black;
     border-radius: 3px;
@@ -269,7 +269,7 @@ button5:setStyleSheet([[
     background-color: rgb(24,24,28);
     border: 1px solid black;
     border-radius: 3px;
-    } 
+    }
 ]])
 function slot5()
     send("5")
@@ -282,7 +282,7 @@ local button6 = Geyser.Label:new({
 button6:setClickCallback("slot6")
 button6:setToolTip("[F6]", "10")
 button6:setStyleSheet([[
-    QLabel { 
+    QLabel {
     background-color: rgb(16,16,20);
     border: 1px solid black;
     border-radius: 3px;
@@ -291,7 +291,7 @@ button6:setStyleSheet([[
     background-color: rgb(24,24,28);
     border: 1px solid black;
     border-radius: 3px;
-    } 
+    }
 ]])
 function slot6()
     send("6")
@@ -304,7 +304,7 @@ local button7 = Geyser.Label:new({
 button7:setClickCallback("slot7")
 button7:setToolTip("[F7]", "10")
 button7:setStyleSheet([[
-    QLabel { 
+    QLabel {
     background-color: rgb(16,16,20);
     border: 1px solid black;
     border-radius: 3px;
@@ -313,7 +313,7 @@ button7:setStyleSheet([[
     background-color: rgb(24,24,28);
     border: 1px solid black;
     border-radius: 3px;
-    } 
+    }
 ]])
 function slot7()
     send("7")
@@ -326,7 +326,7 @@ local button8 = Geyser.Label:new({
 button8:setClickCallback("slot8")
 button8:setToolTip("[F8]", "10")
 button8:setStyleSheet([[
-    QLabel { 
+    QLabel {
     background-color: rgb(16,16,20);
     border: 1px solid black;
     border-radius: 3px;
@@ -335,7 +335,7 @@ button8:setStyleSheet([[
     background-color: rgb(24,24,28);
     border: 1px solid black;
     border-radius: 3px;
-    } 
+    }
 ]])
 function slot8()
     send("8")
@@ -348,7 +348,7 @@ local button9 = Geyser.Label:new({
 button9:setClickCallback("slot9")
 button9:setToolTip("[F9]", "10")
 button9:setStyleSheet([[
-    QLabel { 
+    QLabel {
     background-color: rgb(16,16,20);
     border: 1px solid black;
     border-radius: 3px;
@@ -357,7 +357,7 @@ button9:setStyleSheet([[
     background-color: rgb(24,24,28);
     border: 1px solid black;
     border-radius: 3px;
-    } 
+    }
 ]])
 function slot9()
     send("9")
@@ -370,7 +370,7 @@ local button10 = Geyser.Label:new({
 button10:setClickCallback("slot10")
 button10:setToolTip("[F10]", "10")
 button10:setStyleSheet([[
-    QLabel { 
+    QLabel {
     background-color: rgb(16,16,20);
     border: 1px solid black;
     border-radius: 3px;
@@ -379,7 +379,7 @@ button10:setStyleSheet([[
     background-color: rgb(24,24,28);
     border: 1px solid black;
     border-radius: 3px;
-    } 
+    }
 ]])
 function slot10()
     send("0")
@@ -392,7 +392,7 @@ local button11 = Geyser.Label:new({
 button11:setClickCallback("slot11")
 button11:setToolTip("[F11]", "10")
 button11:setStyleSheet([[
-    QLabel { 
+    QLabel {
     background-color: rgb(16,16,20);
     border: 1px solid black;
     border-radius: 3px;
@@ -401,7 +401,7 @@ button11:setStyleSheet([[
     background-color: rgb(24,24,28);
     border: 1px solid black;
     border-radius: 3px;
-    } 
+    }
 ]])
 function slot11()
     send("-")
@@ -414,7 +414,7 @@ local button12 = Geyser.Label:new({
 button12:setClickCallback("slot12")
 button12:setToolTip("[F12]", "10")
 button12:setStyleSheet([[
-    QLabel { 
+    QLabel {
     background-color: rgb(16,16,20);
     border: 1px solid black;
     border-radius: 3px;
@@ -423,7 +423,7 @@ button12:setStyleSheet([[
     background-color: rgb(24,24,28);
     border: 1px solid black;
     border-radius: 3px;
-    } 
+    }
 ]])
 function slot12()
     send("=")
@@ -436,7 +436,7 @@ local button13 = Geyser.Label:new({
 button13:setClickCallback("vote")
 button13:setToolTip("Vote for PR daily!", "10")
 button13:setStyleSheet([[
-    QLabel { 
+    QLabel {
     background-color: rgb(16,16,20);
     border: 1px solid black;
     border-radius: 3px;
@@ -445,7 +445,7 @@ button13:setStyleSheet([[
     background-color: rgb(24,24,28);
     border: 1px solid black;
     border-radius: 3px;
-    } 
+    }
 ]])
 function vote()
     openUrl("https://www.mudverse.com/vote/531")
@@ -461,9 +461,37 @@ GUI.mapper = GUI.mapper or Geyser.Mapper:new({
 }, GUI.tabwindow3.Mapcenter)
 
 -------[ Save/Load User Tab Prefs ]-----------------------------
-GUI.tabwindow1:load(1, string.format("%s/PRS/settings/", getMudletHomeDir())) -- Load all tabs
+GUI.tabwindow1:load(1, string.format("%s/__PKGNAME__/settings/", getMudletHomeDir())) -- Load all tabs
 
 function SaveTabsOnExit()
-    GUI.tabwindow1:save(1, string.format("%s/PRS/settings/", getMudletHomeDir())) -- Save all tabs on exit
+    GUI.tabwindow1:save(1, string.format("%s/__PKGNAME__/settings/", getMudletHomeDir())) -- Save all tabs on exit
 end
+
 registerAnonymousEventHandler("sysExitEvent", SaveTabsOnExit)
+
+-------[ Reset on Uninstall ]-----------------------------
+function GUI.handlePackageUninstall(_, package)
+    if package ~= "__PKGNAME__" then return end
+
+    -- Hide containers
+    if GUI.top then GUI.top:hide() end
+    if GUI.bottom then GUI.bottom:hide() end
+    if GUI.left_top then GUI.left_top:hide() end
+    if GUI.left_bottom then GUI.left_bottom:hide() end
+    if GUI.right_top then GUI.right_top:hide() end
+    if GUI.right_bottom then GUI.right_bottom:hide() end
+
+    -- Reset borders
+    setBorderTop(0)
+    setBorderBottom(0)
+    setBorderLeft(0)
+    setBorderRight(0)
+
+    -- Reset app stylesheet to default
+    setAppStyleSheet("")
+
+    -- Reset profile after a delay
+    tempTimer(1, function() resetProfile() end)
+end
+
+registerAnonymousEventHandler("sysUninstallPackage", GUI.handlePackageUninstall)

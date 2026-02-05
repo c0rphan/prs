@@ -2,7 +2,7 @@
 -- by Grrtt and Stack (https://ilpdev.com/prs)
 PRSskills = PRSskills or {}
 
-local SUG = require("PRS.sug")
+local SUG = require("__PKGNAME__.sug")
 
 PRSskills.previousSkillCount = PRSskills.previousSkillCount or 0
 

@@ -3,8 +3,8 @@
 PRSchat = PRSchat or {}
 PRSchat.triggers = PRSchat.triggers or {}
 
-local EMCO = require("PRS.emco")
-local rev = require("PRS.revisionator")
+local EMCO = require("__PKGNAME__.emco")
+local rev = require("__PKGNAME__.revisionator")
 
 PRSchat.EMCO = EMCO:new({
     name = "PRSchatTabs",
@@ -21,7 +21,7 @@ PRSchat.EMCO = EMCO:new({
     rightMargin = 10,
     bottomMargin = 10,
     consoleColor = "#101014",
-    consoles = {"Chat", "Newbie", "Trade", "Local", "Tell", "All"},
+    consoles = { "Chat", "Newbie", "Trade", "Local", "Tell", "All" },
     mapTab = false,
     activeTabCSS = stylesheet,
     inactiveTabCSS = istylesheet,
@@ -59,13 +59,13 @@ emcoRev:addPatch(function()
 end)
 
 local function saver(eventName, packageName)
-    if eventName == "sysExitEvent" or packageName == "PRS" then
+    if eventName == "sysExitEvent" or packageName == "__PKGNAME__" then
         PRSchat.EMCO:save()
     end
 end
 
 local function loader(eventName, packageName)
-    if eventName == "sysLoadEvent" or packageName == "PRS" then
+    if eventName == "sysLoadEvent" or packageName == "__PKGNAME__" then
         PRSchat.EMCO:load()
         -- new stuff below here
         local changed = emcoRev:migrate()
@@ -102,10 +102,10 @@ PRSchat.EMCO:setCmdAction("Tell", function(str)
 end)
 PRSchat.EMCO.mc["Tell"]:enableCommandLine()
 
-registerNamedEventHandler("PRS", "load", "sysLoadEvent", loader)
-registerNamedEventHandler("PRS", "install", "sysInstall", loader)
-registerNamedEventHandler("PRS", "exit", "sysExitEvent", saver)
-registerNamedEventHandler("PRS", "uninstall", "sysUninstall", saver)
+registerNamedEventHandler("__PKGNAME__", "load", "sysLoadEvent", loader)
+registerNamedEventHandler("__PKGNAME__", "install", "sysInstallPackage", loader)
+registerNamedEventHandler("__PKGNAME__", "exit", "sysExitEvent", saver)
+registerNamedEventHandler("__PKGNAME__", "uninstall", "sysUninstallPackage", saver)
 
 function PRSchat.stop()
     for k, v in pairs(PRSchat.triggers) do
@@ -221,4 +221,5 @@ function PRSchat.initialize()
             end)
     end
 end
+
 PRSchat.initialize()

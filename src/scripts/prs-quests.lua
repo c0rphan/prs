@@ -8,13 +8,24 @@ local QUEST_LABEL_HEIGHT = 65
 local QUEST_GAP = 0
 
 function displayAllQuests()
+  -- Destroy the scrollbox and recreate it
+  if questBox then
+    questBox:hide()
+    questBox = nil
+  end
+  questContainerTable = {}
+
+  questBox = Geyser.ScrollBox:new({
+    name = "questScrollBox",
+    x = 0,
+    y = 0,
+    height = "100%",
+    width = "100%"
+  }, scrollContainer)
+
+  -- Now display current quests
   for i, quest in ipairs(PRSState.Char.quests) do
     displayQuest(i)
-  end
-  
-  for n=#PRSState.Char.quests+1, #questContainerTable, 1 do
-    questContainerTable[n]:hide()
-    questBox:remove(questContainerTable[n])
   end
 end
 

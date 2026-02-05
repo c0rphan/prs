@@ -606,7 +606,11 @@ function Adjustable.TabWindow:activateTab(tab)
     if self.current then
         self[tab].adjLabelstyle = self.activeTabStyle
         self[tab].adjLabel:setStyleSheet(self.activeTabStyle)
-        self[self.current .. "center"]:show()
+        local center = self[self.current .. "center"]
+        center:show()
+        center:raise()
+        -- Force a relayout by resizing to current dimensions
+        center:resize(center:get_width(), center:get_height())
     end
     self:raiseAll()
 end
@@ -1215,10 +1219,9 @@ function Adjustable.TabWindow:load(slot, dir)
         end
     end
 end
-string.format("%s/PRS/settings/", getMudletHomeDir())
 -- EMCO by demonnic https://github.com/demonnic/EMCO
 function Adjustable.TabWindow:transferEMCO(emco)
-    local EMCO = EMCO or require("PRS.emco")
+    local EMCO = EMCO or require(PRS_PKGNAME .. ".emco")
     -- echo("EMCO Loaded") hide debug tracer
     emco:hide()
     local emco_tabs = emco.tabs
@@ -1403,7 +1406,7 @@ function Adjustable.TabWindow:new(cons, container)
     setmetatable(me, self)
     self.__index = self
     me.type = "adjustabletabwindow"
-    me.defaultDir = me.defaultDir or getMudletHomeDir() .. "/PRS/"
+    me.defaultDir = me.defaultDir or getMudletHomeDir() .. "/" .. PRS_PKGNAME .. "/"
     me.tabs = me.tabs or {}
     me.tabTxtColor = me.tabTxtColor or "white"
     me.tabPadding = me.tabPadding or 12

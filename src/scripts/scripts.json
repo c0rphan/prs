@@ -3,13 +3,13 @@
     "name": "PRS"
   },
   {
+    "name": "prs-gui"
+  },
+  {
     "name": "prs-chat"
   },
   {
     "name": "prs-core"
-  },
-  {
-    "name": "prs-gui"
   },
   {
     "name": "prs-mapper"

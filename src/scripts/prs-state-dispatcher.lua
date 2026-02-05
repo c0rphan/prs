@@ -49,3 +49,32 @@ if stateEventHandlerId then
 end
 
 stateEventHandlerId = registerAnonymousEventHandler("gmcp.State.Patch", prs_state_dispatcher, false)
+
+-- Reset state on reconnect to prevent duplicate data
+local function resetPRSState()
+  PRSState.Char = {}
+  PRSState.Char.quests = {}
+  PRSState.Char.player = {}
+  PRSState.Char.skills = {}
+  PRSState.Char.room = {}
+  PRSState.Char.inventory = {}
+  PRSState.Char.radials = {}
+  PRSState.Char.slots = {}
+  PRSState.Char.sidemap = {}
+  PRSState.Char.minimap = {}
+  PRSState.Char.room.entities = {}
+  PRSState.Char.room.exits = {}
+  PRSState.Char.room.items = {}
+  PRSState.Char.aliases = {}
+  PRSState.Char.equipment = {}
+  PRSState.Char.channels = {}
+  PRSState.Char.charmies = {}
+  PRSState.Char.party = {}
+  PRSState.Char.battle = {}
+end
+
+if connectionResetHandlerId then
+  killAnonymousEventHandler(connectionResetHandlerId)
+end
+
+connectionResetHandlerId = registerAnonymousEventHandler("sysConnectionEvent", resetPRSState)

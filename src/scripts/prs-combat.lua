@@ -1,4 +1,4 @@
-local SUG = require("PRS.sug")
+local SUG = require("__PKGNAME__.sug")
 
 PRScombat = PRScombat or {}
 PRScombat.buttons = PRScombat.buttons or {}
