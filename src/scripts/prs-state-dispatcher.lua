@@ -21,6 +21,7 @@ PRSState.Char.party = PRSState.Char.party or {}
 PRSState.Char.battle = PRSState.Char.battle or {}
 
 function prs_state_dispatcher()
+  local JSONpatch = require("__PKGNAME__.jsonpatch")
   local raisedEvents = {}
   local handledEvents = {}
   for _, patch in ipairs(gmcp.State.Patch) do

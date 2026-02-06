@@ -556,4 +556,4 @@ end
 
 _M.Filter = Filter
 
-JSONpatch = _M
+return _M
